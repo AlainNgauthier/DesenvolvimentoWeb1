@@ -10,5 +10,5 @@ Desenvolvido pelos alunos:<br/>
 <b>Sistema Compra/venda de veículos</b><br/>
 <b>Tecnologias usadas:</b> Servlet, JSP, JSTL e JDBC<br/>
 <b>SGBD utilizado:</b> MySql <br/>
-<b>Nome do banco de dados:</b> ... <br/>
+<b>Nome do banco de dados:</b> CompraVendaVeiculo <br/>
 <br/> 
