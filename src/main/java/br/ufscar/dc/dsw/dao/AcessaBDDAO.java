@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 
-public class AcessaBDDAO {
+abstract public class AcessaBDDAO {
 
 	public AcessaBDDAO() {
 		try {
