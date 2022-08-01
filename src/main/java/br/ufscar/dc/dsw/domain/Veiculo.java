@@ -2,6 +2,7 @@ package br.ufscar.dc.dsw.domain;
 
 public class Veiculo {
 	private Long id;
+	private Usuario loja;
 	private String placa;
 	private String chassi;
 	private String modelo;
@@ -9,10 +10,35 @@ public class Veiculo {
 	private Integer ano;
 	private Float kilometragem;
 	private Float valor;
-	private Usuario loja;
+	
 	
 	public Veiculo(Long id) {
 		this.id = id;
+	}
+	
+	public Veiculo(Usuario loja, String placa, String chassi, String modelo, String descricao, Integer ano, Float kilometragem, Float valor) {
+		super();
+		this.loja = loja;
+		this.placa = placa;
+		this.chassi = chassi;
+		this.modelo = modelo;
+		this.descricao = descricao;
+		this.ano = ano;
+		this.kilometragem = kilometragem;
+		this.valor = valor;
+	}
+	
+	public Veiculo(Long id, Usuario loja, String placa, String chassi, String modelo, String descricao, Integer ano, Float kilometragem, Float valor) {
+		super();
+		this.id = id;
+		this.loja = loja;
+		this.placa = placa;
+		this.chassi = chassi;
+		this.modelo = modelo;
+		this.descricao = descricao;
+		this.ano = ano;
+		this.kilometragem = kilometragem;
+		this.valor = valor;
 	}
 	
 	public Long getId() {
@@ -21,6 +47,14 @@ public class Veiculo {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public Usuario getLoja() {
+		return loja;
+	}
+
+	public void setLoja(Usuario loja) {
+		this.loja = loja;
 	}
 	
 	public String getPlaca() {
@@ -79,11 +113,5 @@ public class Veiculo {
 		this.valor = valor;
 	}
 	
-	public Usuario getAgencia() {
-		return loja;
-	}
-
-	public void setAgencia(Usuario loja) {
-		this.loja = loja;
-	}
+	
 }

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 //CRUD USUARIOS E FILTROS
-public class UsuarioDAO extends AcessaBDDAO {
+public class UsuarioDAO extends GenericDAO {
 	
 	// CREATE ADMIN
 	public void registerAdmin(Usuario usuario) {
@@ -35,7 +35,7 @@ public class UsuarioDAO extends AcessaBDDAO {
             throw new RuntimeException(e);
         }
 	}
-	
+
 	// CREATE CLIENTE
 	public void registerCliente(Usuario usuario) {
 		String sql = "INSERT INTO Usuario (email, senha, nome, nascimento, sexo, cpf, categoria, telefone) VALUES (?, ?, ?, ?)";
@@ -131,7 +131,7 @@ public class UsuarioDAO extends AcessaBDDAO {
 
 	            ResultSet resultSet = statement.executeQuery(sql);
 	            while (resultSet.next()) {
-	                // long id = resultSet.getLong("id");
+	                Long id = resultSet.getLong("id");
 	                String email = resultSet.getString("email");
 	                String senha = resultSet.getString("senha");
 	                String nome = resultSet.getString("nome");
@@ -142,7 +142,7 @@ public class UsuarioDAO extends AcessaBDDAO {
 	                String telefone = resultSet.getString("telefone");
 	                
 	                
-	                Usuario cliente = new Usuario(email, senha, nome, nascimento, sexo, cpf, categoria,  telefone);
+	                Usuario cliente = new Usuario(id, email, senha, nome, nascimento, sexo, cpf, categoria,  telefone);
 	                listClientes.add(cliente);
 	            }
 
@@ -168,14 +168,14 @@ public class UsuarioDAO extends AcessaBDDAO {
 
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
-                // long id = resultSet.getLong("id");
+                Long id = resultSet.getLong("id");
                 String email = resultSet.getString("email");
                 String senha = resultSet.getString("senha");
                 String nome = resultSet.getString("nome");
                 String cnpj = resultSet.getString("cnpj");
                 String categoria = resultSet.getString("categoria");
                 String descricao = resultSet.getString("descricao");
-                Usuario agencia = new Usuario(email, senha, nome, cnpj, categoria, descricao);
+                Usuario agencia = new Usuario(id, email, senha, nome, cnpj, categoria, descricao);
                 listLojas.add(agencia);
             }
 

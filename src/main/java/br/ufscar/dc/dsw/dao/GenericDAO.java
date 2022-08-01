@@ -5,11 +5,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 
-abstract public class AcessaBDDAO {
+abstract public class GenericDAO {
 
-	public AcessaBDDAO() {
+	public GenericDAO() {
 		try {
-			/* Setup para uso do banco de dados MySQL */
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException(e);

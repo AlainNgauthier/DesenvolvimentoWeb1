@@ -28,6 +28,15 @@ public class Usuario {
 		this.categoria = categoria;
 	}
 	
+	public Usuario(Long id, String email, String senha, String nome, String categoria) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.senha = senha;
+		this.nome = nome;
+		this.categoria = categoria;
+	}
+	
 	//CLIENTE
 	public Usuario(String email, String senha, String nome, Date nascimento, String sexo,  String cpf, String categoria, String telefone) {
 		super();
@@ -41,9 +50,33 @@ public class Usuario {
 		this.telefone = telefone;
 	}
 	
+	public Usuario(Long id, String email, String senha, String nome, Date nascimento, String sexo,  String cpf, String categoria, String telefone) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.senha = senha;
+		this.nome = nome;
+		this.nascimento = nascimento;
+		this.sexo = sexo;
+		this.cpf = cpf;
+		this.categoria = categoria;
+		this.telefone = telefone;
+	}
+	
 	//LOJA
 	public Usuario(String email, String senha, String nome, String cnpj, String categoria, String descricao) {
 		super();
+		this.email = email;
+		this.senha = senha;
+		this.nome = nome;
+		this.categoria = categoria;
+		this.cnpj = cnpj;
+		this.descricao = descricao;
+	}
+	
+	public Usuario(Long id, String email, String senha, String nome, String cnpj, String categoria, String descricao) {
+		super();
+		this.id = id;
 		this.email = email;
 		this.senha = senha;
 		this.nome = nome;
@@ -88,7 +121,7 @@ public class Usuario {
 		return nascimento;
 	}
 
-	public void setNasc(Date nascimento) {
+	public void setNascnascimento(Date nascimento) {
 		this.nascimento = nascimento;
 	}
 	
