@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.text.SimpleDateFormat;
+
 
 import br.ufscar.dc.dsw.domain.Veiculo;
 import br.ufscar.dc.dsw.domain.Usuario;
