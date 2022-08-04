@@ -17,13 +17,13 @@ Desenvolvido pelos alunos:<br/>
 
 <h3>Requisitos<h3/>
 
-1. CRUD de clientes (E-mail, senha, CPF, nome, telefone, sexo e data de nascimento) [DONE]
-2. CRUD de lojas (E-mail, senha, CNPJ, nome e descrição) [DONE]
-3. Cadastro de veículo para venda (requer login da loja via e-mail e senha) [in progress]
-4. Listagem de todos os veículos em uma página (Filtro por modelo) [DONE]
-5. Proposta de compra de veículo (login de cliente via e-mail e senha) [TO DO]
-6. Listagem de todos os veículos de uma loja (login da loja via e-mail e senha) [TO DO]
-7. Listagem de todas as propostas de compra de um cliente (login do cliente via email e senha) [TO DO]
-8. A loja deve analisar as condições da proposta e atualizar o status da proposta p/ NÃO ACEITO ou ACEITO. [TO DO]
-9. O sitema deve tratar todos os erros possíveis. [in progress]
+- CRUD de clientes (E-mail, senha, CPF, nome, telefone, sexo e data de nascimento) [DONE]
+- CRUD de lojas (E-mail, senha, CNPJ, nome e descrição) [DONE]
+- Cadastro de veículo para venda (requer login da loja via e-mail e senha) [DONE]
+- Listagem de todos os veículos em uma página (Filtro por modelo, não requer login) [DONE]
+- Proposta de compra de veículo (login de cliente via e-mail e senha) [TO DO]
+- Listagem de todos os veículos de uma loja (login da loja via e-mail e senha) [TO DO]
+- Listagem de todas as propostas de compra de um cliente (login do cliente via email e senha) [TO DO]
+- A loja deve analisar as condições da proposta e atualizar o status da proposta p/ NÃO ACEITO ou ACEITO. [TO DO]
+- O sitema deve tratar todos os erros possíveis. [DONE]
 
