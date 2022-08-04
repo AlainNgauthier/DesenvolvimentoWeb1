@@ -21,6 +21,15 @@ public class Compra {
 		this.usuario = usuario;
 		this.veiculo = veiculo;
 	}
+	
+	public Compra(Long id, Date data, Float valor, Usuario usuario, Veiculo veiculo) {
+		super();
+		this.id = id;
+		this.data = data;
+		this.valor = valor;
+		this.usuario = usuario;
+		this.veiculo = veiculo;
+	}
 
 	public Long getId() {
 		return id;
