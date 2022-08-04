@@ -1,8 +1,0 @@
-br/ufscar/dc/dsw/domain/Veiculo.class
-br/ufscar/dc/dsw/domain/Compra.class
-br/ufscar/dc/dsw/dao/GenericDAO.class
-br/ufscar/dc/dsw/domain/Usuario.class
-br/ufscar/dc/dsw/dao/VeiculoDAO.class
-br/ufscar/dc/dsw/controller/controller.class
-br/ufscar/dc/dsw/dao/UsuarioDAO.class
-br/ufscar/dc/dsw/util/Erro.class
