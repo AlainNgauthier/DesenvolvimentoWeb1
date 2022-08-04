@@ -59,7 +59,7 @@ public class Compra {
 		return veiculo;
 	}
 
-	public void setPacote(Veiculo veiculo) {
+	public void setVeiculo(Veiculo veiculo) {
 		this.veiculo = veiculo;
 	}
 
