@@ -58,19 +58,25 @@ public class IndexController extends HttpServlet {
 			throw new ServletException(e);
 		}
 	}
-
+	
+	// Pagina inicial que contem a listagem dos veículos e filtro por modelo - REQ 4
 	private void paginaInicial(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Veiculo> listaVeiculos = null;
 
 		String modelo = request.getParameter("modelo");
-
+		
+		// Filtro por modelo
 		if (modelo != null) {
 			listaVeiculos = vDao.getAllVeiculosPorModelo(modelo);
 		} else {
 			listaVeiculos = vDao.getAllVeiculos();
 		}
-
+		
+		List<String> listaModelos = vDao.getAllModelos();
+		
 		request.setAttribute("listaVeiculos", listaVeiculos);
+		request.setAttribute("listaModelos", listaModelos);
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/listaVeiculos.jsp");
 		dispatcher.forward(request, response);
 	}

@@ -48,7 +48,7 @@ public class VeiculoController extends HttpServlet {
 		try {
 			switch (action) {
 				
-				case "/listaPacotesCliente":
+				case "/listaVeiculosCliente":
 					listaVeiculosCliente(request, response, usuario);
 					break;
 				default:
@@ -63,7 +63,7 @@ public class VeiculoController extends HttpServlet {
 	private void listaDeVeiculos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Veiculo> listaVeiculos = dao.getAllVeiculos();
 		request.setAttribute("listaVeiculos", listaVeiculos);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/pacote/listaVeiculos.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/veiculo/listaVeiculos.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -81,7 +81,7 @@ public class VeiculoController extends HttpServlet {
 	private void acessoNegadoAgencia (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Erro erros = new Erro();
 		erros.add("Acesso não autorizado!");
-		erros.add("Só usuários da categoria LOJA têm acesso a essa página");
+		erros.add("Acesso restrito a usuários LOJA");
 		request.setAttribute("mensagens", erros);
 		RequestDispatcher rd = request.getRequestDispatcher("/noAuth.jsp");
 		rd.forward(request, response);
@@ -90,7 +90,7 @@ public class VeiculoController extends HttpServlet {
 	private void acessoNegadoCliente (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Erro erros = new Erro();
 		erros.add("Acesso não autorizado!");
-		erros.add("Apenas usuários CLIENTE têm acesso a essa página");
+		erros.add("Acesso restrito a usuários CLIENTE");
 		request.setAttribute("mensagens", erros);
 		RequestDispatcher rd = request.getRequestDispatcher("/noAuth.jsp");
 		rd.forward(request, response);

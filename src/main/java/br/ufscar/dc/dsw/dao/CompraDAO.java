@@ -55,7 +55,7 @@ public class CompraDAO extends GenericDAO {
                 Long id = resultSet.getLong("id");
                 Date data = resultSet.getDate("data");
                 Float valor = resultSet.getFloat("valor");
-                Long veiculoId = resultSet.getLong("pacote_id");
+                Long veiculoId = resultSet.getLong("veiculo_id");
                 Veiculo veiculo = new VeiculoDAO().get(veiculoId);            
                 Compra compra = new Compra(id, data, valor, usuario, veiculo);
                 listaCompras.add(compra);

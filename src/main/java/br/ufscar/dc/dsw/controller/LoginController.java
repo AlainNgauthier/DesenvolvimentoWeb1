@@ -43,8 +43,7 @@ public class LoginController extends HttpServlet {
 						} else if (usuario.getCategoria().equals("LOJA")) {
 							response.sendRedirect("loja/");
 						} else {
-							// TODO
-							// response.sendRedirect("compras/");
+							response.sendRedirect("cliente/");
 						}
 						return;
 					} else {

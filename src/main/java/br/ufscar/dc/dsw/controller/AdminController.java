@@ -43,7 +43,7 @@ public class AdminController extends HttpServlet {
 			return;
 		} else if (!usuario.getCategoria().equals("ADMIN")) {
 			erros.add("Acesso não autorizado!");
-			erros.add("Apenas Papel [ADMIN] tem acesso a essa página");
+			erros.add("Acesso restrito à categoria ADMIN");
 			request.setAttribute("mensagens", erros);
 			RequestDispatcher rd = request.getRequestDispatcher("/noAuth.jsp");
 			rd.forward(request, response);
@@ -85,7 +85,7 @@ public class AdminController extends HttpServlet {
 					apresentaFormularioEdicaoLoja(request, response);
 					break;
 				case "/atualizarLoja":
-					atualizaAgencia(request, response);
+					atualizaLoja(request, response);
 					break;
 				case "/removeCliente":
 					removeCliente(request, response);
@@ -141,7 +141,7 @@ public class AdminController extends HttpServlet {
 	//apresentaFormularioCadastroLoja
 	private void apresentaFormularioCadastroLoja(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/admin/formulario.jsp");
-		request.setAttribute("usuario", "agencia");
+		request.setAttribute("usuario", "loja");
 		dispatcher.forward(request, response);
 	}
 	
@@ -174,8 +174,8 @@ public class AdminController extends HttpServlet {
 	//listaLojas
 	private void listaLojas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Usuario> listaLojas = dao.getAllLojas();
-		request.setAttribute("listaAgencias", listaLojas);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/admin/listaAgencias.jsp");
+		request.setAttribute("listaLojas", listaLojas);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/admin/listaLojas.jsp");
 		dispatcher.forward(request, response);
 	}
 	
@@ -222,7 +222,7 @@ public class AdminController extends HttpServlet {
 	}
 	
 	//atualizaLoja
-	private void atualizaAgencia(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void atualizaLoja(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		Long id = Long.parseLong(request.getParameter("id"));
 		String nome = request.getParameter("nome");
@@ -235,7 +235,7 @@ public class AdminController extends HttpServlet {
 		Usuario agencia = new Usuario(id, email, senha, nome, cnpj, categoria, descricao);
 
 		dao.updateLoja(agencia);
-		response.sendRedirect("listaAgencias");
+		response.sendRedirect("listaLojas");
 	}
 	
 	//removeCliente

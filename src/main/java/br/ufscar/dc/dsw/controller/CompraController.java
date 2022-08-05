@@ -50,7 +50,7 @@ public class CompraController extends HttpServlet {
 			return;
 		} else if (!usuario.getCategoria().equals("CLIENTE")) {
 			erros.add("Acesso não autorizado!");
-			erros.add("Apenas Categoria CLIENTE tem acesso a essa página");
+			erros.add("Acesso restrito à categoria CLIENTE");
 			request.setAttribute("mensagens", erros);
 			RequestDispatcher rd = request.getRequestDispatcher("/noAuth.jsp");
 			rd.forward(request, response);
@@ -87,16 +87,16 @@ public class CompraController extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private Map<Long, Veiculo> getPacotes() {
-        Map<Long, Veiculo> pacotes = new HashMap<>();
-        for (Veiculo pacote : new VeiculoDAO().getAllVeiculos()) {
-            pacotes.put(pacote.getId(), pacote);
+    private Map<Long, Veiculo> getVeiculos() {
+        Map<Long, Veiculo> veiculos = new HashMap<>();
+        for (Veiculo veiculo : new VeiculoDAO().getAllVeiculos()) {
+        	veiculos.put(veiculo.getId(), veiculo);
         }
-        return pacotes;
+        return veiculos;
     }
 
     private void apresentaFormCadastro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("pacotes", getPacotes());
+        request.setAttribute("veiculos", getVeiculos());
         RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/compra/formulario.jsp");
         dispatcher.forward(request, response);
     }
@@ -104,7 +104,7 @@ public class CompraController extends HttpServlet {
     private void insere(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         
-        Long id = Long.parseLong(request.getParameter("pacote"));
+        Long id = Long.parseLong(request.getParameter("veiculo"));
 
         Veiculo veiculo = new VeiculoDAO().get(id);
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");

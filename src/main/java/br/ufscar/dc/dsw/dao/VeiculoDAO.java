@@ -224,6 +224,31 @@ public class VeiculoDAO extends GenericDAO {
 		return listVeiculosByModelo;
 	}
 	
+	//GET todos os modelos
+	public List<String> getAllModelos() {
+
+        List<String> listaModelos = new ArrayList<>();
+
+        String sql = "SELECT modelo from Veiculo";
+
+        try {
+            Connection conn = this.getConnection();
+            Statement statement = conn.createStatement();
+
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+            	listaModelos.add(resultSet.getString("modelo"));
+            }
+
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return listaModelos;
+    }
+	
 	//UPDATE VEICULO
 	public void update(Veiculo veiculo) {
 		String sql="UPDATE Veiculo SET cnpj= ?, placa = ?, chassi = ?, modelo = ?, descricao = ?, ano = ?, kilometragem = ?, valor = ? WHERE id = ?";
@@ -247,7 +272,7 @@ public class VeiculoDAO extends GenericDAO {
 	
 	// DELETE VEICULO
 	public void delete(Veiculo veiculo) {
-        String sql = "DELETE FROM Pacote where id = ?";
+        String sql = "DELETE FROM Veiculo where id = ?";
 
         try {
             Connection conn = this.getConnection();
