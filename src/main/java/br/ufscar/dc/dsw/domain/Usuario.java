@@ -153,7 +153,7 @@ public class Usuario {
 		return categoria;
 	}
 
-	public void setPapel(String categoria) {
+	public void setCategoria(String categoria) {
 		this.categoria = categoria;
 	}
 

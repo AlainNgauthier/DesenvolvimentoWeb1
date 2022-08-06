@@ -347,7 +347,7 @@ public class UsuarioDAO extends GenericDAO {
 	                } else {
 	                    String cnpj = resultSet.getString("cnpj");
 	                    String descricao = resultSet.getString("descricao");
-	                    usuario = new Usuario(id, email, senha, nome, categoria, cnpj, descricao);
+	                    usuario = new Usuario(id, email, senha, nome, cnpj, categoria, descricao);
 	                }
 	            }
 
@@ -362,7 +362,7 @@ public class UsuarioDAO extends GenericDAO {
 	 
 	 //GET LOJA BY CNPJ - relação Fk Veiculo
 	 public Usuario getLojaByCnpj(String cnpj) {
-	        Usuario agencia = null;
+	        Usuario loja = null;
 
 	        String sql = "SELECT * FROM Usuario WHERE cnpj = ?";
 
@@ -380,7 +380,7 @@ public class UsuarioDAO extends GenericDAO {
 	                String categoria = resultSet.getString("categoria");
 	                String descricao = resultSet.getString("descricao");
 
-	                agencia = new Usuario(id, email, senha, nome, cnpj, categoria, descricao);
+	                loja = new Usuario(id, email, senha, nome, cnpj, categoria, descricao);
 	            }
 
 	            resultSet.close();
@@ -389,7 +389,7 @@ public class UsuarioDAO extends GenericDAO {
 	        } catch (SQLException e) {
 	            throw new RuntimeException(e);
 	        }
-	        return agencia;
+	        return loja;
 	    }
 	 
 }

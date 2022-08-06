@@ -43,7 +43,8 @@ public class LoginController extends HttpServlet {
 						} else if (usuario.getCategoria().equals("LOJA")) {
 							response.sendRedirect("loja/");
 						} else {
-							response.sendRedirect("cliente/");
+							erros.add("Usuário não reconhecido");
+							response.sendRedirect("/");
 						}
 						return;
 					} else {
