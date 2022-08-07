@@ -8,7 +8,7 @@
 
 <html>
 		<head>
-			<title>Compra/Venda de Veículo</title>
+			<title>Compra E Venda de Veículo</title>
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 			<!-- Optional theme -->
 			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">	
@@ -27,15 +27,15 @@
 							<li><a href="/<%=contextPath%>/index.jsp">Home</a></li>
 							<c:choose>
 								<c:when test="${sessionScope.usuarioLogado != null && sessionScope.usuarioLogado.categoria == 'LOJA'}">
-									<li><a href="/<%=contextPath%>/loja">Espaço LOJA</a></li>
+									<li><a href="/<%=contextPath%>/loja">Área Loja</a></li>
 									<li><a href="/<%=contextPath%>/logout/logout">Sair</a></li>								
 								</c:when>
 								<c:when test="${sessionScope.usuarioLogado != null && sessionScope.usuarioLogado.categoria == 'CLIENTE'}">
-									<li><a href="/<%=contextPath%>/cliente">Espaço CLIENTE</a></li>
+									<li><a href="/<%=contextPath%>/cliente">Área Cliente</a></li>
 									<li><a href="/<%=contextPath%>/logout/logout">Sair</a></li>	
 								</c:when>
 								<c:when test="${sessionScope.usuarioLogado != null && sessionScope.usuarioLogado.categoria == 'ADMIN'}">
-									<li><a href="/<%=contextPath%>/admin">Espaço ADMIN</a></li>
+									<li><a href="/<%=contextPath%>/admin">Área Admin</a></li>
 									<li><a href="/<%=contextPath%>/logout/logout">Sair</a></li>
 								</c:when>
 								<c:otherwise>
@@ -48,11 +48,12 @@
 			</nav>
 			<div class="container" role="main">
 				<div class="jumbotron">
-        			<h1>Lista Veículos</h1>
+        			<h3>Lista Veículos</h3>
+        			<p>
+        				Nesta página estão listados todos os veículos. <br/> 
+        				Use o filtro para listar pelo modelo.
+        			</p>
       			</div>
-				<!-- <div class="page-header">
-	        		<h1>Lista Veículos</h1>
-	      		</div> -->
 				<div class="row">
 					<div>
 						<table class="table table-striped">
@@ -82,14 +83,14 @@
 					</div>
 				</div>
 				<div class="row">
-					<span>Filtrar Veículo por: Modelo</span>
+					<h4>Filtrar Veículos pelo Modelo:</h6>
 				</div>
 				<div class="row">
-				<ul>
-					<c:forEach var="modelo" items="${requestScope.listaModelos}">
-						<li><a href="/<%=contextPath%>/listaVeiculos?modelo=${modelo}"><c:out value="${modelo}"/></a></li>
-					</c:forEach>			
-				</ul>
+					<ul>
+						<c:forEach var="modelo" items="${requestScope.listaModelos}">
+							<li><a href="/<%=contextPath%>/listaVeiculos?modelo=${modelo}"><c:out value="${modelo}"/></a></li>
+						</c:forEach>			
+					</ul>
 				</div>
 			</div>
 		</body>

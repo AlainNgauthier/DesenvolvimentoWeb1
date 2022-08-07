@@ -68,6 +68,19 @@ insert into Compra(data, valor, usuario_id, veiculo_id) values ('2022-07-25', 59
 */
 
 
+insert into Veiculo(cnpj, placa, chassi, modelo, descricao, ano, kilometragem, valor) values ('60.724.444/0001-00', 'LSN4I49', 'chassi', 'Chevrolet', 'Bolt', 2017, 443.55, 27350.00);
+insert into Veiculo(cnpj, placa, chassi, modelo, descricao, ano, kilometragem, valor) values ('60.724.444/0001-00', 'LSN4I48', 'chassi', 'Chevrolet', 'Cruze', 2008, 943.55, 27350.00);
+insert into Veiculo(cnpj, placa, chassi, modelo, descricao, ano, kilometragem, valor) values ('60.724.444/0001-00', 'LSN4I47', 'chassi', 'Chevrolet', 'Menlo', 2020, 59.00, 27350.00);
+insert into Veiculo(cnpj, placa, chassi, modelo, descricao, ano, kilometragem, valor) values ('60.724.444/0001-00', 'LSN4I46', 'chassi', 'Chevrolet', 'Onix', 2012, 7543.75, 27350.00);
+insert into Veiculo(cnpj, placa, chassi, modelo, descricao, ano, kilometragem, valor) values ('60.724.444/0001-00', 'LSN4I44', 'chassi', 'Jeep', 'Compass', 2020, 1.50, 79350.00);
+insert into Veiculo(cnpj, placa, chassi, modelo, descricao, ano, kilometragem, valor) values ('60.724.444/0001-00', 'LSN4I43', 'chassi', 'Jeep', 'Grand Cherokee', 2020, 3.55, 87350.00);
+insert into Veiculo(cnpj, placa, chassi, modelo, descricao, ano, kilometragem, valor) values ('60.724.444/0001-00', 'LSN4I42', 'chassi', 'Jeep', 'Wrangler', 2020, 4.50, 97350.00);
+
+insert into Veiculo(cnpj, placa, chassi, modelo, descricao, ano, kilometragem, valor) values ('55.789.390/0008-00', 'LSN8I41', 'chassi', 'Mercedes', 'E-Class Sedan', 2012, 1234.55, 200350.00);
+insert into Veiculo(cnpj, placa, chassi, modelo, descricao, ano, kilometragem, valor) values ('55.789.390/0008-00', 'LSN8I42', 'chassi', 'Mercedes', 'Ultra-Intelligent', 2012, 1234.55, 243580.00);
+insert into Veiculo(cnpj, placa, chassi, modelo, descricao, ano, kilometragem, valor) values ('55.789.390/0008-00', 'LSN8I43', 'chassi', 'Mercedes', 'A-Class Sedans', 2012, 1234.55, 163580.00);
+
+
 
 
 

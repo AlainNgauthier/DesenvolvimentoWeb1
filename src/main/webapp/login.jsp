@@ -27,22 +27,23 @@
                     </ul>
                 </div>
             </c:if>
-            <div class="page-header">
-            	<h2>Fazer login</h2>
-	            <form method="post" action="log.jsp" class="form-login">	            	
-	            	<div>
-	            		<div class="row">
-		                	Email: <input type="text" name="login" value="${param.login}"/>
-	            		</div>
-	            		<div class="row">
-			                Senha: <input type="password" name="senha" />
-	            		</div>
+            <div class="container" role="main">
+	            <div class="page-header">
+	            	<h2>Fazer login</h2>
+	            	<div class="container">
+			            <form method="post" action="log.jsp">			            	
+			            	<div class="form-group">
+			            		<label for="inputEmail">Email</label>
+				                <input type="text" name="login" value="${param.login}" class="form-control" id="inputEmail" />
+			            	</div>			            		
+			            	<div class="form-group">
+			            	<label for="inputPassword">Senha</label>
+					        	<input type="password" name="senha" class="form-control" id="inputPassword"/>
+			            		</div>			            				            				            		            				            				            	
+				            <button type="submit" class="btn btn-primary" name="bOK">Login</button>			            		  
+			            </form>            
 	            	</div>
-	            	<div class="row">
-		                <button type="submit" class="btn btn-primary" name="bOK">Login</button>
-	                <!-- <input type="submit" name="bOK" value="Login"> -->
-	            	</div>	  
-	            </form>            
+	            </div>
             </div>
         </body>
 </html>
