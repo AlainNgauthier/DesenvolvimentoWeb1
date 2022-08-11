@@ -37,6 +37,9 @@ public class CompraDAO extends GenericDAO {
         }
     }
 	
+	
+	// atualizar compra - "purchase state"
+	
 	// READ todas as compras de um usuário - REQ 7;
 	public List<Compra> getAll(Usuario usuario) {
 

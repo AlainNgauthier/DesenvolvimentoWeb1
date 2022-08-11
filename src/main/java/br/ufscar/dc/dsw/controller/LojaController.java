@@ -99,7 +99,7 @@ public class LojaController extends HttpServlet {
 		List<Veiculo> listaVeiculos = vDao.getAllVeiculosLoja(usuario);
 		request.setAttribute("lista", listaVeiculos);
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/loja/listaVeiculos.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/loja/listaVeiculosLoja.jsp");
 		dispatcher.forward(request, response);
 	}
 

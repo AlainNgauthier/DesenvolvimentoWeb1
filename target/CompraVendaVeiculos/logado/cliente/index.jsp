@@ -22,6 +22,7 @@
 					<div id="navbar" class="navbar-collapse collapse"">
 						<ul class="nav navbar-nav">
 							<li><a href="/<%=contextPath%>/index.jsp">Home</a></li>
+							<li><a href="/<%=contextPath%>/compras">Minhas compras</a></li>
 							<li><a href="/<%=contextPath%>/logout/logout">Sair</a></li>
 						</ul>
 					</div>
@@ -29,7 +30,7 @@
 			</nav>
 			<div class="container" role="main">
 				<div class="jumbotron">
-					<h2>Área Cliente ${sessionScope.usuarioLogado.nome}</h2>
+					<h2>Área Cliente: ${sessionScope.usuarioLogado.nome}</h2>
 				</div>
 			</div>
 		</body>

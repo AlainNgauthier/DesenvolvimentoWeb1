@@ -31,7 +31,7 @@
 			</nav>
 			<div class="container" role="main">
 				<div class="jumbotron">
-					<h2>Área Loja ${sessionScope.usuarioLogado.nome}</h2>
+					<h2>Área Loja: ${sessionScope.usuarioLogado.nome}</h2>
 				</div>
 			</div>
 		</body>

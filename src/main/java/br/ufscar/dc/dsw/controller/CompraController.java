@@ -112,7 +112,6 @@ public class CompraController extends HttpServlet {
         Date data = new java.sql.Date(System.currentTimeMillis());
         Compra compra = new Compra(data, veiculo.getValor(), usuario, veiculo);
         dao.insert(compra);
-        
         response.sendRedirect("lista");
     }
 }
