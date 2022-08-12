@@ -5,16 +5,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <table class="table table-striped">
-	<caption>
-		<c:choose>
-			<c:when test="${loja != null}">
-            	<h6>Atualizar</h6><br/>
-            </c:when>
-			<c:otherwise>
-            	<h6>Cadastrar</h6><br/>
-            </c:otherwise>
-		</c:choose>
-	</caption>
 	<c:if test="${loja != null}">
 		<input type="hidden" name="id" value="${loja.id}" />
 	</c:if>

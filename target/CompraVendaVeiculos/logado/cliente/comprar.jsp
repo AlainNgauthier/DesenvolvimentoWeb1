@@ -35,6 +35,14 @@
 	        </nav> 
 	        
 	        <div class="container" role="main">
+	        	<div class="row">
+		         	<div class="jumbotron">
+	        			<h3>Proposta de compra</h3>
+	        			<p>
+	        				Nesta página, você realiza uma proposta de compra.
+	        			</p>
+	        		</div>
+		         </div>
 		        <div class="row">
 		            <div class="row">
 		                <c:set var="veiculo" value='${requestScope.veiculo}' />
@@ -60,7 +68,7 @@
 		                        	</form>
 		                        </c:when>
 		                        <c:otherwise>
-		                        	<div align="center">
+		                        	<div class="row">
 										<h1>Propostas em aberto</h1>
 									</div>
 		                       		<table class="propostas class="table table-striped"">
@@ -68,24 +76,18 @@
 											<tr>
 		                                        <th>Data</th>
 												<th>Valor</th>
-		                        				<th>Desistir da Compra?</th>
+		                        				
 											</tr>
 										</thead>
 		                                <tbody>
 		                                    <tr>
 		                                        <td>${pageScope.proposta_aberta.data}</td>
 		                                        <td>R$ ${pageScope.proposta_aberta.valor} ${pageScope.proposta_aberta.parcelamento}x</td>
-		                                        <td id="botao_cancelar">
-		                                            <a id="remover" href="../proposta/removerProposta?id=${pageScope.proposta_aberta.id}">Cancelar</a>
-		                                        </td>
 		                                    </tr>
 		                                </tbody>
 									</table>
 		                       </c:otherwise> 	
 		                </c:choose>
-		              </div>
-		              <div>
-		                Descrição do Veículo: <h6>${veiculo.descricao}</h6>
 		              </div>
 		        </div>
 	        </div>

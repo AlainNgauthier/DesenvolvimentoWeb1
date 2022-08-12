@@ -43,14 +43,12 @@
 	        		</div>
 		         </div>
 		        <div class="row">
-		            <div class="row">
-		                <input type="text" name="Filtro" placeholder="Filtrar por modelo" id="filtro">
-		            </div>
+		            
 		            <br/><br/>
 		            <div id="legendaN" class="row">
 		            	<h4>Veiculos</h4>
 		            </div>
-						<div class="row">
+					<div class="row">
 							<div class="col-sm-6">
 					            <c:forEach var="veiculo" items="${requestScope.catalogo}">
 						            <div onclick="location.href='login.jsp'" class="box">
@@ -64,8 +62,11 @@
 						            </div>				               
 					            </c:forEach>	            	
 							</div>
-						</div>
-		        	</div>   
+					</div>
+					<div class="row">
+		                <input type="text" name="Filtro" placeholder="Busque por modelo" id="filtro">
+		            </div>
+		        </div>   
 	         </div>
 	        <script src="js/filtro.js"></script>
 	    </body>

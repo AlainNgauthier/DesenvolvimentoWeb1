@@ -33,12 +33,16 @@
 		        	</div>
 		        </div>
 	        </nav> 
-	        <br/><br/><br/><br/>
-	        <div align="center" class="row">
-				<h1>Lista de Propostas</h1>
-			</div>
-	        <div align="center">
-		        <section>
+			<div class="row">
+		         	<div class="jumbotron">
+	        			<h3>Lista de Propostas</h3>
+	        			<p>
+	        				Nesta página estão listados todas suas propostas de compras.
+	        			</p>
+	        		</div>
+		    </div>
+	        <div class="container">
+		        <section class="row">
 		            <table class="table table-striped">
 						<thead>
 							<tr>
@@ -57,10 +61,10 @@
 								<tr>
 	                                <td>${proposta.data}</td>
 		                            <td>${proposta.veiculo.modelo}</td>
-		                            <td>R$${proposta.veiculo.valor}</td>
+		                            <td>R$ ${proposta.veiculo.valor}</td>
 	                                <td>${proposta.parcelamento}</td>
 		                            <td>${proposta.loja.nome}</td>
-									<td>R$${proposta.valor}</td>
+									<td>R$ ${proposta.valor}</td>
 		                            <td>
 		                            	<c:choose>
 		                            		<c:when test="${proposta.estado == 'ACEITO'}">

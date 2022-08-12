@@ -18,21 +18,30 @@
 	<body>
 		
 		<%String contextPath = request.getContextPath().replace("/", ""); %>
-		<nav class="navbar navbar-inverse navbar-fixed-top">
-				<div class="container">
-					<div id="navbar" class="navbar-collapse collapse"">
-						<ul class="nav navbar-nav">
-							<li><a href="${pageContext.request.contextPath}/admin">Área Admin</a></li>
-							<li><a href="${pageContext.request.contextPath}/logout">Sair</a></li>
-						</ul>
+		<div class="row">
+			<nav class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div id="navbar" class="navbar-collapse collapse"">
+							<ul class="nav navbar-nav">
+								<li><a href="${pageContext.request.contextPath}/admin">Área Admin</a></li>
+								<li><a href="${pageContext.request.contextPath}/logout">Sair</a></li>
+							</ul>
+						</div>
 					</div>
-				</div>
-		</nav>
-        
-		<div align="center" class="row">
-			<h3>Lista de Lojas</h3>
+			</nav>
+		</div>
+       
+		<div class="row">
+			<div class="container">
 			<div class="row">
-				<div>
+		         	<div class="jumbotron">
+	        			<h3>Lista de Lojas</h3>
+	        			<p>
+	        				Nesta página estão listados todos as lojas.
+	        			</p>
+	        		</div>
+		         </div>
+				<div class="row">
 					<table class="table table-striped">
 						<thead>
 							<tr>
@@ -55,7 +64,7 @@
 									<td>${loja.CNPJ}</td>
 									<td>${loja.descricao}</td>
 									<td>
-										<a href="/<%= contextPath%>/admin/edicaoLoja?id=${loja.id}"><fmt:message key="object.update"/></a>
+										<a href="/<%= contextPath%>/admin/edicaoLoja?id=${loja.id}">Editar</a>
 											&nbsp;&nbsp;&nbsp;&nbsp; <a
 											href="/<%= contextPath%>/admin/remocaoLoja?id=${loja.id}"
 											onclick="return confirm('Remover essa loja?');">Remover
@@ -68,8 +77,8 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="adiciona">
-					<a href="/<%=contextPath%>/admin/cadastroLoja">Cadastrar Loja</a>
+				<div class="container">
+						<a href="/<%=contextPath%>/admin/cadastroLoja">Cadastrar nova loja</a>
 				</div>
 			</div>
 		</div>

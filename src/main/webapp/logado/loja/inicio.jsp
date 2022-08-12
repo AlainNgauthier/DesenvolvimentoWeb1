@@ -41,26 +41,33 @@
 		        </div>
 	        </nav> 
 	        
-	        <div class="row">  
-		            <div id="divFiltro" class="row">
-		                <input type="text" name="Filtro" placeholder="Filtrar por modelo" id="filtro">
-		            </div>
-		            <br/><br/>
-		            <div class="row">
-			            <div class="col-sm-6">
-				            <c:forEach var="veiculo" items="${requestScope.catalogo}">
-				                <div class="box">
-				                    <div class="card">
-				                        <ul class="list-group">
-				                            <li class="modelo list-group-item">${veiculo.modelo}</li>
-				                            <a href="lojas/edicao?id=${veiculo.id}">Editar</a>
-											<a href="lojas/remocao?id=${veiculo.id}" onclick="return confirm('Remover Veículo?');">Remover</a>
-				                        </ul>
-				                    </div>
-				                </div>
-				            </c:forEach>        
-			            </div>
-		            </div>
+	        <div class="row">
+	        	<div class="container">
+	        	<div class="row">
+		         	<div class="jumbotron">
+	        			<h3>Lista de Veículos</h3>
+	        			<p>Listagem dos veículos da sua loja</p>
+	        		</div>
+		         </div>
+			     <div class="row">
+				            <div class="col-sm-6">
+					            <c:forEach var="veiculo" items="${requestScope.catalogo}">
+					                <div class="box">
+					                    <div class="card">
+					                        <ul class="list-group">
+					                            <li class="modelo list-group-item">${veiculo.modelo}</li>
+					                            <a href="lojas/edicao?id=${veiculo.id}">Editar</a>
+												<a href="lojas/remocao?id=${veiculo.id}" onclick="return confirm('Remover Veículo?');">Remover</a>
+					                        </ul>
+					                    </div>
+					                </div>
+					            </c:forEach>        
+				            </div>
+			      </div>
+			      <div id="divFiltro" class="row">
+			         <input type="text" name="Filtro" placeholder="Filtrar por modelo" id="filtro">
+			      </div>
+	        	</div>  
 	        </div>
 	        <script src="js/filtro.js"></script>
 	    </body>

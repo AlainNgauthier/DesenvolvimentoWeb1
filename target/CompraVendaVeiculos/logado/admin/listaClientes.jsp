@@ -6,7 +6,7 @@
 <html>
 	
 		<head>
-			<title>Lista de Clientes</title>
+			<title>Lista de Usuários</title>
 			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 			<!-- Optional theme -->
 			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">	
@@ -27,53 +27,63 @@
 					</div>
 				</div>
 			</nav>
-			<br/></br/><br/><br/><br/>													
-			<div align="row center">
-				<h2>Lista de Usuários</h2>
-				<div class="row">
-					<div>
-						<table class="table table-striped">
-							<thead>
-								<tr>
-									<th>id</th>
-									<th>Email</th>
-									<th>Senha</th>
-									<th>CPF</th>
-									<th>Nome</th>
-									<th>Telefone</th>
-			                        <th>Sexo</th>
-									<th>Nascimento</th>
-									<th>Papel</th>
-									<th>Ações</th>
-								</tr>
-							</thead>
 			
-							<tbody>
-								<c:forEach var="cliente" items="${requestScope.listaClientes}">
+			<div classs="container">
+				<div class="row">
+					<div class="row">
+			         	<div class="jumbotron">
+		        			<h3>Lista de Usuários</h3>
+		        			<p>
+		        				Nesta página estão listados todos os usuários [Admins/Clientes].
+		        			</p>
+		        		</div>
+			         </div>
+					<div class="row">
+						<div>
+							<table class="table table-striped">
+								<thead>
 									<tr>
-										<td>${cliente.id}</td>
-										<td>${cliente.email}</td>
-			                            <td>${cliente.senha}</td>
-			                            <td>${cliente.CPF}</td>
-			                            <td>${cliente.nome}</td>
-			                            <td>${cliente.telefone}</td>
-			                            <td>${cliente.sexo}</td>
-			                            <td>${cliente.nascimento}</td>
-			                            <td>${cliente.papel}</td>
-										<td>
-											<a href="/<%= contextPath%>/admin/edicaoCliente?id=${cliente.id}">Editar</a>
-											&nbsp;&nbsp;&nbsp;&nbsp; 
-											<a href="/<%= contextPath%>/admin/remocaoCliente?id=${cliente.id}" onclick="return confirm('Remover o cliente?');">Remover</a>
-										</td>
+										<th>id</th>
+										<th>Email</th>
+										<th>Senha</th>
+										<th>CPF</th>
+										<th>Nome</th>
+										<th>Telefone</th>
+				                        <th>Sexo</th>
+										<th>Nascimento</th>
+										<th>Papel</th>
+										<th>Ações</th>
 									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
+								</thead>
+								<tbody>
+									<c:forEach var="cliente" items="${requestScope.listaClientes}">
+										<tr>
+											<td>${cliente.id}</td>
+											<td>${cliente.email}</td>
+				                            <td>${cliente.senha}</td>
+				                            <td>${cliente.CPF}</td>
+				                            <td>${cliente.nome}</td>
+				                            <td>${cliente.telefone}</td>
+				                            <td>${cliente.sexo}</td>
+				                            <td>${cliente.nascimento}</td>
+				                            <td>${cliente.papel}</td>
+											<td>
+												<a href="/<%= contextPath%>/admin/edicaoCliente?id=${cliente.id}">Editar</a>
+												&nbsp;&nbsp;&nbsp;&nbsp; 
+												<a href="/<%= contextPath%>/admin/remocaoCliente?id=${cliente.id}" onclick="return confirm('Remover o cliente?');">Remover</a>
+											</td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="row col-sm-4">
+						<div class="container">
+							<a href="/<%=contextPath%>/admin/cadastroCliente">Cadastrar novo cliente</a>
+						</div>
 					</div>
 				</div>
-				<div class="row col-sm-4">
-					<a href="/<%=contextPath%>/admin/cadastroCliente">Cadastrar Cliente</a>
-				</div>
-			</div>
+			</div>										
 		</body>	
 </html>

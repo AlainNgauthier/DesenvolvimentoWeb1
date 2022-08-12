@@ -35,14 +35,16 @@
 		        	</div>
 		        </div>
 	        </nav>
-	        <br/><br/><br/> 
+	         
 			<div class="container" role="main">
 				<div class="row">
+					<div class="jumbotron">
+	        			<h3>Lista de Veículos</h3>
+	        			<p>
+	        				Nesta página estão listados todos os veículos.
+	        			</p>
+	        		</div>
 			        <div id="carros">
-			            <div id="divFiltro" class="row">
-			                <input type="text" name="Filtro" placeholder="Filtrar por modelo:" id="filtro">
-			            </div>
-			            <br/><br/>
 			            <div class="col-sm-6">
 				            <c:forEach var="veiculo" items="${requestScope.catalogo}">
 				                <div class="box" onclick="location.href='clientes/comprar?id=${veiculo.id}'">
@@ -56,6 +58,9 @@
 				                    </div>
 				                </div>
 				            </c:forEach>
+			            </div>
+			            <div id="divFiltro" class="row">
+			                <input type="text" name="Filtro" placeholder="Filtrar por modelo:" id="filtro">
 			            </div>
 			        </div>
 				</div>

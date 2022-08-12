@@ -47,7 +47,7 @@ public class LoginController extends HttpServlet {
 							response.sendRedirect("admin");
 						} 
 						else {
-							response.sendRedirect("clientes");	//home clientes
+							response.sendRedirect("clientes");
 						}
 						return;
 					} else {
@@ -58,7 +58,7 @@ public class LoginController extends HttpServlet {
 					if (loja != null && usuario == null) {
 						if (loja.getSenha().equalsIgnoreCase(senha)) {
 							request.getSession().setAttribute("lojaLogada", loja);
-							response.sendRedirect("lojas");	//home loja
+							response.sendRedirect("lojas");
 							return;
 						}
 						else {

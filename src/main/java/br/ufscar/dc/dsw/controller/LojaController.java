@@ -116,8 +116,6 @@ public class LojaController extends HttpServlet {
     	
     	Veiculo veiculo = new Veiculo(placa, modelo,chassi,ano,quilometragem, descricao,valor,loja);
     	dao.insert(veiculo);
-    	
-    	// Retorna para a página do CRUD:
     	response.sendRedirect("../lojas");
     }
     private void atualiza(HttpServletRequest request, HttpServletResponse response)
@@ -166,8 +164,6 @@ public class LojaController extends HttpServlet {
     	Long id = Long.parseLong( id_s );
     	Veiculo veiculo = new Veiculo(id);
     	dao.delete(veiculo);
-   
-    	// Retorna para a página do CRUD:
     	response.sendRedirect("../lojas");
     }
 }
