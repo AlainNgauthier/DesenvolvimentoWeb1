@@ -8,77 +8,61 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import br.ufscar.dc.dsw.domain.Loja;
 import br.ufscar.dc.dsw.domain.Veiculo;
-import br.ufscar.dc.dsw.domain.Usuario;
 
-
-
-// CRUD VEICULOS
 public class VeiculoDAO extends GenericDAO {
-	
-	/* CREATE VEICULO - 3 */
-	public void insert(Veiculo veiculo) {
-		String sql = "INSERT INTO Veiculo (cnpj, placa, chassi, modelo, descricao, ano, kilometragem, valor) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-		
-		try {
+
+    public void insert(Veiculo veiculo) {    
+        String sql = "INSERT INTO Veiculo (placa, modelo, chassi, ano, quilometragem, descricao, valor, id_loja) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
             Connection conn = this.getConnection();
-            PreparedStatement statement = conn.prepareStatement(sql);
-
+            PreparedStatement statement = conn.prepareStatement(sql);;    
             statement = conn.prepareStatement(sql);
-            statement.setString(1, veiculo.getLoja().getCnpj());
-            statement.setString(2, veiculo.getPlaca());
+            statement.setString(1, veiculo.getPlaca());
+            statement.setString(2, veiculo.getModelo());
             statement.setString(3, veiculo.getChassi());
-            statement.setString(4, veiculo.getModelo());
-            statement.setString(5, veiculo.getDescricao());
-            statement.setInt(6, veiculo.getAno());
-            statement.setFloat(7, veiculo.getKilometragem());
-            statement.setFloat(8, veiculo.getValor());
-            
+            statement.setInt(4, veiculo.getAno());
+            statement.setInt(5, veiculo.getQuilometragem());
+            statement.setString(6, veiculo.getDescricao());
+            statement.setFloat(7, veiculo.getValor());
+            statement.setLong(8, veiculo.getLoja().getId());
             statement.executeUpdate();
-
             statement.close();
             conn.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-	}
-	
-	/* READ ALL VEICULOS - REQ 4 */
-	public List<Veiculo> getAllVeiculos() {
-
+    }
+    
+    public List<Veiculo> getAll() {   
         List<Veiculo> listaVeiculos = new ArrayList<>();
-
-        String sql = "SELECT * from Veiculo v, Usuario u WHERE v.cnpj = u.cnpj";
-
+        String sql = "SELECT * from Veiculo v, Loja l where v.id_loja = l.id order by v.id";
         try {
             Connection conn = this.getConnection();
             Statement statement = conn.createStatement();
-
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
-            	// veículo
-                Long id = resultSet.getLong("id");
-                String cnpj = resultSet.getString("cnpj");
+            	Long id =  resultSet.getLong("id");
                 String placa = resultSet.getString("placa");
-                String chassi = resultSet.getString("chassi");
                 String modelo = resultSet.getString("modelo");
-                String descricao = resultSet.getString("descricao");
+                String chassi = resultSet.getString("chassi");
                 Integer ano = resultSet.getInt("ano");
-                Float kilometragem = resultSet.getFloat("kilometragem");
-                Float valor = resultSet.getFloat("valor");
-                //usuário
-                Long loja_id = resultSet.getLong(10);
-                String email = resultSet.getString("email");
-                String senha = resultSet.getString("senha");
-                String loja_nome = resultSet.getString("nome");
-                String categoria = resultSet.getString("categoria");
-                String descricao_loja = resultSet.getString(15);
-                Usuario loja = new Usuario(loja_id, email, senha, loja_nome, cnpj, categoria,  descricao_loja);
-                Veiculo veiculo = new Veiculo(id, loja, placa, chassi, modelo, descricao, ano, kilometragem, valor);
+                Integer quilometragem = resultSet.getInt("quilometragem");
+                String descricao = resultSet.getString("descricao");
+                float valor = resultSet.getFloat("valor");
+                
+                Long loja_id = resultSet.getLong(6);
+    			String email = resultSet.getString("email");
+				String senha = resultSet.getString("senha");
+				String nome = resultSet.getString("nome");
+				String cnpj = resultSet.getString("CNPJ");
+				String descricao_loja = resultSet.getString("l.descricao");
+
+                Loja loja = new Loja(loja_id,email,senha,cnpj,nome,descricao_loja);
+                Veiculo veiculo = new Veiculo(id,placa,modelo,chassi,ano,quilometragem,descricao,valor,loja);
                 listaVeiculos.add(veiculo);
             }
-
             resultSet.close();
             statement.close();
             conn.close();
@@ -86,185 +70,114 @@ public class VeiculoDAO extends GenericDAO {
             throw new RuntimeException(e);
         }
         return listaVeiculos;
-	}
-	
-	//Todos os veiculos de uma loja (usuário loja logado) - REQ 6
-	public List<Veiculo> getAllVeiculosLoja(Usuario usuario) {
+    }
 
-        List<Veiculo> listaVeiculosLoja = new ArrayList<>();
-
-        String sql = "SELECT * from Veiculo v, Usuario u WHERE u.id = ? AND v.cnpj = u.cnpj";
-
+    public List<Veiculo> getAllByLoja(Long id_loja) {   
+        List<Veiculo> listaVeiculos = new ArrayList<>();
+        String sql = "SELECT * from Veiculo v, Loja l where l.id = ? and v.id_loja = l.id order by v.id";
+        
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
-
-            Long id = usuario.getId();
-
-            statement.setLong(1, id);
+            
+            statement.setLong(1, id_loja);
+            
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-            	//veiculo
-                long veiculo_id = resultSet.getLong(1);
+            	Long id =  resultSet.getLong("id");
                 String placa = resultSet.getString("placa");
-                String cnpj = resultSet.getString("cnpj");
-                String chassi = resultSet.getString("chassi");
                 String modelo = resultSet.getString("modelo");
-                String descricao = resultSet.getString("descricao");
+                String chassi = resultSet.getString("chassi");
                 Integer ano = resultSet.getInt("ano");
-                Float kilometragem = resultSet.getFloat("kilometragem");
-                Float valor = resultSet.getFloat("valor");
-                //usuário loja                                      
-                String email = resultSet.getString("email");
-                String senha = resultSet.getString("senha");
-                String nome = resultSet.getString("nome");
-                String categoria = resultSet.getString("categoria");
-                String descricao_loja = resultSet.getString(15);
+                Integer quilometragem = resultSet.getInt("quilometragem");
+                String descricao = resultSet.getString("descricao");
+                float valor = resultSet.getFloat("valor");
                 
-                Usuario loja = new Usuario(id, email, senha, nome, cnpj, categoria, descricao_loja);
-                Veiculo veiculo = new Veiculo(veiculo_id, loja, placa, chassi, modelo, descricao, ano, kilometragem, valor);
-                listaVeiculosLoja.add(veiculo);
-            }
+                Long loja_id = resultSet.getLong("id");
+    			String email = resultSet.getString("email");
+				String senha = resultSet.getString("senha");
+				String nome = resultSet.getString("nome");
+				String cnpj = resultSet.getString("CNPJ");
+				String descricao_loja = resultSet.getString("l.descricao");
 
+                Loja loja = new Loja(loja_id,email,senha,cnpj,nome,descricao_loja);
+                Veiculo veiculo = new Veiculo(id,placa,modelo,chassi,ano,quilometragem,descricao,valor,loja);
+                listaVeiculos.add(veiculo);
+            }
             resultSet.close();
             statement.close();
             conn.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return listaVeiculosLoja;
+        
+        
+        return listaVeiculos;
     }
-	
-	//GET um veiculo pelo seu id
-	 public Veiculo get(Long id) {
-		 Veiculo veiculo = null;
-
-	        String sql = "SELECT * from Veiculo v, Usuario u WHERE v.id = ? AND v.cnpj = u.cnpj";
-
-	        try {
-	            Connection conn = this.getConnection();
-	            PreparedStatement statement = conn.prepareStatement(sql);
-
-	            statement.setLong(1, id);
-	            ResultSet resultSet = statement.executeQuery();
-	            if (resultSet.next()) {
-	            	// veiculo
-	            	//long id = resultSet.getLong(1);
-	                String cnpj = resultSet.getString("cnpj");
-	                String placa = resultSet.getString("placa");
-	                String chassi = resultSet.getString("chassi");
-	                String modelo = resultSet.getString("modelo");
-	                String descricao = resultSet.getString("descricao");
-	                Integer ano = resultSet.getInt("ano");
-	                Float kilometragem = resultSet.getFloat("kilometragem");
-	                Float valor = resultSet.getFloat("valor");
-	                
-	                //usuário
-	                long agencia_id = resultSet.getLong(10);
-	                String email = resultSet.getString("email");
-	                String senha = resultSet.getString("senha");
-	                String nome = resultSet.getString("nome");
-	                String categoria = resultSet.getString("categoria");
-	                String descricao_loja = resultSet.getString("descricao");
-	                Usuario agencia = new Usuario(agencia_id, email, senha, nome, cnpj, categoria, descricao_loja);
-	                veiculo = new Veiculo(id, agencia, placa, chassi, modelo, descricao, ano, kilometragem, valor);
-	            }
-
-	            resultSet.close();
-	            statement.close();
-	            conn.close();
-	        } catch (SQLException e) {
-	            throw new RuntimeException(e);
-	        }
-	        return veiculo;
-	    }
-	
-	// FILTERING VEICULO BY MODELO - 4b
-	public List<Veiculo> getAllVeiculosPorModelo(String modelo) {
-		List<Veiculo> listVeiculosByModelo = new ArrayList<>();
-		//Veiculo veiculo = null;
-		
-		String sql = "SELECT * from Veiculo v, Usuario u WHERE v.modelo = ? AND v.cnpj = u.cnpj";
-		
-		try {
-			Connection conn = this.getConnection();
-            PreparedStatement statement = conn.prepareStatement(sql);
-            
-            statement.setString(1, modelo);
-            ResultSet resultSet = statement.executeQuery();
-            
-            while (resultSet.next()) {
-            	 // veiculo
-            	 Long id = resultSet.getLong("id");
-                 String cnpj = resultSet.getString("cnpj");
-                 String placa = resultSet.getString("placa");
-                 String chassi = resultSet.getString("chassi");
-                 String modelo_veiculo = resultSet.getString("modelo");
-                 String descricao = resultSet.getString("descricao");
-                 Integer ano = resultSet.getInt("ano");
-                 Float kilometragem = resultSet.getFloat("kilometragem");
-                 Float valor = resultSet.getFloat("valor");
-                 // usuário loja
-                 Long loja_id = resultSet.getLong(10);
-                 String email = resultSet.getString("email");
-                 String senha = resultSet.getString("senha");
-                 String loja_nome = resultSet.getString("nome");
-                 String categoria = resultSet.getString("categoria");
-                 String descricao_loja = resultSet.getString(15);
-                 
-                 Usuario loja = new Usuario(loja_id, email, senha, loja_nome, cnpj, categoria, descricao_loja);
-                 Veiculo veiculo = new Veiculo(id, loja, placa, chassi, modelo_veiculo, descricao, ano, kilometragem, valor);
-                 
-                 listVeiculosByModelo.add(veiculo);
-            }
-		} catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-		
-		return listVeiculosByModelo;
-	}
-	
-	//UPDATE VEICULO
-	public void update(Veiculo veiculo) {
-		String sql="UPDATE Veiculo SET cnpj= ?, placa = ?, chassi = ?, modelo = ?, descricao = ?, ano = ?, kilometragem = ?, valor = ? WHERE id = ?";
-		try {
-			Connection conn = this.getConnection();
-            PreparedStatement statement = conn.prepareStatement(sql);
-            
-            statement.setString(1, veiculo.getLoja().getCnpj());
-            statement.setString(2, veiculo.getPlaca());
-            statement.setString(3, veiculo.getChassi());
-            statement.setString(4, veiculo.getModelo());
-            statement.setString(5, veiculo.getDescricao());
-            statement.setInt(6, veiculo.getAno());
-            statement.setFloat(7, veiculo.getKilometragem());
-            statement.setFloat(8, veiculo.getValor());
-            statement.setLong(9, veiculo.getId());
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-	}
-	
-	// DELETE VEICULO
-	public void delete(Veiculo veiculo) {
-        String sql = "DELETE FROM Pacote where id = ?";
-
+    
+    public void delete(Veiculo veiculo) {
+        String sql = "DELETE FROM Veiculo where id = ?";
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
-
             statement.setLong(1, veiculo.getId());
             statement.executeUpdate();
-
             statement.close();
             conn.close();
         } catch (SQLException e) {
         }
     }
-	
-	public List<Veiculo> getAllVeiculosCliente(Usuario usuario) {
-        List<Veiculo> lista = null;
-
-        return lista;
+    
+    public void update(Veiculo veiculo) {
+        String sql = "UPDATE Veiculo SET placa = ?, modelo = ?, chassi = ?, ano = ?, quilometragem = ?, descricao = ?, valor = ?, id_loja = ? WHERE id = ?";
+    
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, veiculo.getPlaca());
+            statement.setString(2, veiculo.getModelo());
+            statement.setString(3, veiculo.getChassi());
+            statement.setInt(4, veiculo.getAno());
+            statement.setInt(5, veiculo.getQuilometragem());
+            statement.setString(6, veiculo.getDescricao());
+            statement.setFloat(7, veiculo.getValor());
+            statement.setLong(8, veiculo.getLoja().getId());
+            statement.setLong(9,veiculo.getId());
+            statement.executeUpdate();
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    public Veiculo getById(Long id) {
+        Veiculo veiculo = null;
+        String sql = "SELECT * from Veiculo v, Loja l where v.id = ? and v.id_loja = l.id";
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setLong(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+            	String placa = resultSet.getString("placa");
+                String modelo = resultSet.getString("modelo");
+                String chassi = resultSet.getString("chassi");
+                Integer ano = resultSet.getInt("ano");
+                Integer quilometragem = resultSet.getInt("quilometragem");
+                String descricao = resultSet.getString("descricao");
+                Float valor = resultSet.getFloat("valor");
+                Long id_loja = resultSet.getLong("id_loja");
+                
+                Loja loja = new LojaDAO().getById(id_loja);
+                veiculo = new Veiculo(id,placa, modelo, chassi, ano, quilometragem, descricao, valor,loja);
+            }
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return veiculo;
     }
 }
