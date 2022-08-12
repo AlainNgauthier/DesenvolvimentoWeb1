@@ -34,7 +34,7 @@ values ('0001111', 'Bolt','1A1A1111111111111',2017,1000, 'Chevrolet',27350,1);
 */
 
 /*insert into Veiculo(placa, modelo, chassi, ano, quilometragem, descricao, valor, id_loja) 
-values ('0001112', 'Compass', '1A1A1111111111111', 2020, 400, 'Chevrolet', 79350.50, 1);*/
+values ('0001112', 'Compass', '11111111111111111', 2020, 400, 'Chevrolet', 79350.50, 1);*/
 
 
 /*insert into Proposta(id_cliente,id_loja,id_veiculo, valor,data_p, estado, parcelamento) values (1,1,1,25000,'2022-08-01', 'ABERTO',10);*/
