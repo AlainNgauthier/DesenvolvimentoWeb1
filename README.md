@@ -3,7 +3,6 @@
 Desenvolvido pelos alunos:<br/>
 - Alain Gauthier Ndamwey, 725921
 - Patrícia da Silva Ramos, 795410
-- 
 
 <br/>
 
