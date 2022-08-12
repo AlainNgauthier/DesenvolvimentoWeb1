@@ -28,14 +28,14 @@
 			                      </a>
 			                </li>
 				            <li>
-				                 <a href="logout">Sair</a>
-				            </li>
-				            <li>
 	                    		<a href="proposta/listarPropostasLoja">Lista de Propostas</a>
 	                		</li>
 	                		<li>
 	                    		<a href="lojas/cadastro">Cadastrar Veículo</a>
 	                		</li>
+	                		 <li>
+				                 <a href="logout">Sair</a>
+				            </li>
 						</ul>
 		        	</div>
 		        </div>
@@ -65,7 +65,7 @@
 				            </div>
 			      </div>
 			      <div id="divFiltro" class="row">
-			         <input type="text" name="Filtro" placeholder="Filtrar por modelo" id="filtro">
+			         <input type="text" name="Filtro" placeholder="Busque pelo modelo" id="filtro">
 			      </div>
 	        	</div>  
 	        </div>

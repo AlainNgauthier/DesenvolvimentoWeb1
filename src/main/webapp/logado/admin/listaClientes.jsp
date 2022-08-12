@@ -28,7 +28,7 @@
 				</div>
 			</nav>
 			
-			<div classs="container">
+			<div class="container">
 				<div class="row">
 					<div class="row">
 			         	<div class="jumbotron">

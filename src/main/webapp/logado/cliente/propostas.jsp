@@ -26,21 +26,20 @@
 			                <li>
 			                	<a href="listarPropostasCliente">Minha lista de Propostas</a>
 			                </li>
-				            <li>
-				                 <a href="logout">Sair</a>
-				            </li>
 						</ul>
 		        	</div>
 		        </div>
-	        </nav> 
-			<div class="row">
-		         	<div class="jumbotron">
-	        			<h3>Lista de Propostas</h3>
-	        			<p>
-	        				Nesta página estão listados todas suas propostas de compras.
-	        			</p>
-	        		</div>
-		    </div>
+	        </nav>
+	        <div class="container">
+				<div class="row">
+			         	<div class="jumbotron">
+		        			<h3>Lista de Propostas</h3>
+		        			<p>
+		        				Nesta página estão listados todas suas propostas de compras.
+		        			</p>
+		        		</div>
+			    </div>
+	        </div> 
 	        <div class="container">
 		        <section class="row">
 		            <table class="table table-striped">
@@ -80,7 +79,7 @@
 		                            </td>
 	                                <td>
 	                                    <c:if test="${proposta.estado == 'ABERTO' }">
-	                                	    <a id="negar" href="../proposta/removerProposta?id=${proposta.id}">Cancelar</a>
+	                                	    <a id="negar" href="../proposta/removerProposta?id=${proposta.id}">Cancelar Proposta</a>
 	                                    </c:if>
 	                                </td>
 								</tr>

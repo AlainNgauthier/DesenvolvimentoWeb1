@@ -146,6 +146,7 @@ public class LojaController extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/loja/formularioVeiculos.jsp");
         dispatcher.forward(request, response);
     }
+    
     private void apresentaFormEdicaoVeiculos(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -157,6 +158,7 @@ public class LojaController extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/loja/formularioVeiculos.jsp");
         dispatcher.forward(request, response);
     }
+    
     
     private void remove(HttpServletRequest request, HttpServletResponse response)
     		throws IOException {

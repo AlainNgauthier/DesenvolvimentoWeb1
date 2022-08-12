@@ -76,7 +76,7 @@ public class LoginController extends HttpServlet {
 			rd.forward(request, response);
 		}
 		else {
-			request.getSession().invalidate(); //logout
+			request.getSession().invalidate();
 			String URL = "/index.jsp";
 			RequestDispatcher rd = request.getRequestDispatcher(URL);
 			rd.forward(request, response);

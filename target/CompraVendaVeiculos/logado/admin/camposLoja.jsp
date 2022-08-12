@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<table class="table table-striped">
+<table border="1" class="table table-striped">
 	<c:if test="${loja != null}">
 		<input type="hidden" name="id" value="${loja.id}" />
 	</c:if>

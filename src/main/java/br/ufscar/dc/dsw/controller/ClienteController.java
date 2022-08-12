@@ -93,19 +93,6 @@ public class ClienteController extends HttpServlet {
 		
         request.setAttribute("veiculo", veiculo);
         request.setAttribute("listaPropostas", listaPropostas);
-        
-//        String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY +  id_s;
-//		File dir = new File(uploadPath);
-//		int num_files;
-//	    File[] directoryListing = dir.listFiles();
-//		if (directoryListing != null){
-//	    	num_files = directoryListing.length;
-//		}
-//		else {
-//			num_files = 0;
-//		}
-//	    
-//	    request.setAttribute("num_files", num_files);
 		
         RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/cliente/comprar.jsp");
         dispatcher.forward(request, response);

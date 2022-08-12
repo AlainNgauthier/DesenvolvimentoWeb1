@@ -60,7 +60,7 @@
 				            </c:forEach>
 			            </div>
 			            <div id="divFiltro" class="row">
-			                <input type="text" name="Filtro" placeholder="Filtrar por modelo:" id="filtro">
+			                <input type="text" name="Filtro" placeholder="Busque pelo modelo" id="filtro">
 			            </div>
 			        </div>
 				</div>

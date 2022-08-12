@@ -66,7 +66,7 @@ public class Loja {
 		return CNPJ;
 	}
 
-	public void setCPF(String CNPJ) {
+	public void setCNPJ(String CNPJ) {
 		this.CNPJ = CNPJ;
 	}
 

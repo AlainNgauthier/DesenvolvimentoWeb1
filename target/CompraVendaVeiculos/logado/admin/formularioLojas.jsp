@@ -25,7 +25,7 @@
 	        			</p>
 	        		</div>
 		         </div>
-				<div align="row">
+				<div class="row">
 					<c:choose>
 						<c:when test="${loja != null}">
 							<form action="atualizacaoLoja" method="post">
