@@ -21,56 +21,59 @@
 				<div class="container">
 					<div id="navbar" class="navbar-collapse collapse"">
 						<ul class="nav navbar-nav">
-							<li><a href="/<%=contextPath%>/index.jsp">Home</a></li>
-							<li><a href="/<%=contextPath%>/admin">Área Admin</a></li>
-							<li><a href="/<%=contextPath%>/logout/logout">Sair</a></li>
+							<li><a href="${pageContext.request.contextPath}/admin">Área Admin</a></li>
+							<li><a href="${pageContext.request.contextPath}/logout">Sair</a></li>
 						</ul>
 					</div>
 				</div>
-			</nav>															
-			<div class="container" role="main">
-				<div class="jumbotron">
-	        		<h3>Lista de Clientes</h3>
-	        		<p>
-	        			Nesta página estão listados todos os clientes.
-	        		</p>
-	      		</div>
+			</nav>
+			<br/></br/><br/><br/><br/>													
+			<div align="row center">
+				<h2>Lista de Usuários</h2>
 				<div class="row">
 					<div>
 						<table class="table table-striped">
-							<tr>
-								<th>id</th>
-								<th>Nome</th>
-								<th>Email</th>
-								<th>Senha</th>
-								<th>CPF</th>
-								<th>Telefone</th>
-								<th>Sexo</th>
-								<th>Data de Nascimento</th>
-								<th>Opções</th>
-							</tr>
-							<c:forEach var="cliente" items="${requestScope.listaClientes}">
+							<thead>
 								<tr>
-									<td><c:out value="${cliente.id}" /></td>
-									<td><c:out value="${cliente.nome}" /></td>
-									<td><c:out value="${cliente.email}" /></td>
-									<td><c:out value="${cliente.senha}" /></td>
-									<td><c:out value="${cliente.cpf}" /></td>
-									<td><c:out value="${cliente.telefone}" /></td>
-									<td><c:out value="${cliente.sexo}" /></td>
-									<td><c:out value="${cliente.nascimento}" /></td>
-									<td>
-										<a href="/<%= contextPath %>/admin/atualizaCliente?id=<c:out value='${cliente.id}'/>">Editar</a> 
-			                        	&nbsp;&nbsp;&nbsp;&nbsp;
-			                            <a href="/<%= contextPath %>/admin/removeCliente?id=<c:out value='${cliente.id}'/>"
-												onclick="return confirm('Quer remover esse cliente?');">Remover</a>
-									</td>
+									<th>id</th>
+									<th>Email</th>
+									<th>Senha</th>
+									<th>CPF</th>
+									<th>Nome</th>
+									<th>Telefone</th>
+			                        <th>Sexo</th>
+									<th>Nascimento</th>
+									<th>Papel</th>
+									<th>Ações</th>
 								</tr>
-							</c:forEach>
+							</thead>
+			
+							<tbody>
+								<c:forEach var="cliente" items="${requestScope.listaClientes}">
+									<tr>
+										<td>${cliente.id}</td>
+										<td>${cliente.email}</td>
+			                            <td>${cliente.senha}</td>
+			                            <td>${cliente.CPF}</td>
+			                            <td>${cliente.nome}</td>
+			                            <td>${cliente.telefone}</td>
+			                            <td>${cliente.sexo}</td>
+			                            <td>${cliente.nascimento}</td>
+			                            <td>${cliente.papel}</td>
+										<td>
+											<a href="/<%= contextPath%>/admin/edicaoCliente?id=${cliente.id}">Editar</a>
+											&nbsp;&nbsp;&nbsp;&nbsp; 
+											<a href="/<%= contextPath%>/admin/remocaoCliente?id=${cliente.id}" onclick="return confirm('Remover o cliente?');">Remover</a>
+										</td>
+									</tr>
+								</c:forEach>
+							</tbody>
 						</table>
 					</div>
 				</div>
+				<div class="row col-sm-4">
+					<a href="/<%=contextPath%>/admin/cadastroCliente">Cadastrar Cliente</a>
+				</div>
 			</div>
-		</body>
-	
+		</body>	
 </html>

@@ -1,9 +1,6 @@
 package br.ufscar.dc.dsw.controller;
 
 import java.io.IOException;
-import java.util.List;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,247 +9,310 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.ufscar.dc.dsw.dao.UsuarioDAO;
-import br.ufscar.dc.dsw.domain.Usuario;
+import br.ufscar.dc.dsw.domain.Cliente;
+import br.ufscar.dc.dsw.dao.ClienteDAO;
+import br.ufscar.dc.dsw.domain.Loja;
+import br.ufscar.dc.dsw.dao.LojaDAO;
+
 import br.ufscar.dc.dsw.util.Erro;
+import java.util.List;
+
 
 @WebServlet(urlPatterns = "/admin/*")
 public class AdminController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
 
-	private UsuarioDAO dao;
+    private static final long serialVersionUID = 1L;
 
-	@Override
-	public void init() {
-		dao = new UsuarioDAO();
-	}
+	private LojaDAO daoLoja;
+	private ClienteDAO daoCliente;
 
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-	}
-	
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @Override
+    public void init() {
+        daoLoja = new LojaDAO();
+		daoCliente = new ClienteDAO();
+    }
 
-		Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	
+    	Cliente cliente = (Cliente) request.getSession().getAttribute("usuarioLogado");
+
+		if (cliente == null) {
+    		erro(request, response);
+    	} else if (cliente.getPapel().equals("ADMIN")) {
+			String action = request.getPathInfo();
+			if (action == null) {
+				action = "";
+			}
+
+			try {
+				switch (action) {
+					case "/cadastroLoja":
+						apresentaFormCadastroLojas(request, response);
+						break;
+					case "/insercaoLoja":
+						insereLoja(request, response);
+						break;
+					case "/edicaoLoja":
+						apresentaFormEdicaoLojas(request,response);
+						break;
+					case "/atualizacaoLoja":
+						atualizaLoja(request,response);
+						break;
+					case "/remocaoLoja":
+						removeLoja(request, response);
+						break;
+					case "/listaLojas":
+						listaLojas(request, response);
+						break;
+					case "/cadastroCliente":
+						apresentaFormCadastroClientes(request, response);
+						break;
+					case "/insercaoCliente":
+						insereCliente(request, response);
+						break;
+					case "/edicaoCliente":
+						apresentaFormEdicaoClientes(request, response);
+						break;
+					case "/atualizacaoCliente":
+						atualizaCliente(request, response);
+						break;
+					case "/remocaoCliente":
+						removeCliente(request, response);
+						break;
+					case "/listaClientes":
+						listaClientes(request, response);
+						break;
+					default:
+						RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/admin/crudLinks.jsp");
+						dispatcher.forward(request, response);
+						break;
+				}
+			} catch (RuntimeException | IOException | ServletException e) {
+				throw new ServletException(e);
+			}
+    		
+    	} else {
+    		erro(request, response);
+    	}
+    }
+
+	private void erro(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+		
 		Erro erros = new Erro();
 
-		if (usuario == null) {
-			response.sendRedirect(request.getContextPath());
-			return;
-		} else if (!usuario.getCategoria().equals("ADMIN")) {
-			erros.add("Acesso não autorizado!");
-			erros.add("Acesso restrito à categoria ADMIN");
-			request.setAttribute("mensagens", erros);
-			RequestDispatcher rd = request.getRequestDispatcher("/noAuth.jsp");
-			rd.forward(request, response);
-			return;
-		}
-		
-		String action = request.getPathInfo();
-		if (action == null) {
-			action = "";
-		}
+        erros.add("Acesso não autorizado!");
+    	erros.add("Apenas ADMINS tem acesso a essa página");
+    	request.setAttribute("mensagens", erros);
+    	RequestDispatcher rd = request.getRequestDispatcher("/noAuth.jsp");
+    	rd.forward(request, response);
+    }
 
-		try {
-			switch (action) {
-				case "/cadastroCliente":
-					apresentaFormularioCadastroCliente(request, response);
-					break;
-				case "/inserirCliente":
-					insereCliente(request, response);
-					break;
-				case "/cadastroLoja":
-					apresentaFormularioCadastroLoja(request, response);
-					break;
-				case "/inserirLoja":
-					insereLoja(request, response);
-					break;
-				case "/listaClientes":
-					listaClientes(request, response);
-					break;
-				case "/listaLojas":
-					listaLojas(request, response);
-					break;
-				case "/atualizaCliente":
-					apresentaFormularioEdicaoCliente(request, response);
-					break;
-				case "/atualizarCliente":
-					atualizaCliente(request, response);
-					break;
-				case "/atualizaLoja":
-					apresentaFormularioEdicaoLoja(request, response);
-					break;
-				case "/atualizarLoja":
-					atualizaLoja(request, response);
-					break;
-				case "/removeCliente":
-					removeCliente(request, response);
-					break;
-				case "/removeLoja":
-					removeLoja(request, response);
-					break;
-				default:
-					paginaInicial(request, response);
-					break;
+	private void listaLojas(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        List<Loja> listaLojas = daoLoja.getAll();
+        request.setAttribute("listaLojas", listaLojas);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/admin/listaLojas.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void apresentaFormCadastroLojas(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {	
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/admin/formularioLojas.jsp");
+        dispatcher.forward(request, response);
+    }
+    
+    private void apresentaFormEdicaoLojas(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Long id = Long.parseLong(request.getParameter("id"));
+        Loja loja = daoLoja.getById(id);
+        request.setAttribute("loja", loja);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/admin/formularioLojas.jsp");
+        dispatcher.forward(request, response);
+    }
+    
+    private Erro verifica_duplicado(String email, String senha) {
+		Erro erros = new Erro();
+   		
+		int i = 0;
+		int ver_cli = 0;
+		ClienteDAO dao_cliente = new ClienteDAO();
+		List<Cliente> lista_clientes = dao_cliente.getAll();
+		while(i<lista_clientes.size() && erros.size() == 0) { //verifica duplicação em cliente
+			if(lista_clientes.get(i).getEmail().equals(email)) {
+				erros.add("Email já cadastrado");
+				ver_cli = 1;
 			}
-		} catch (RuntimeException | IOException | ServletException e) {
-			throw new ServletException(e);
-		}
-	}
-	
-	//Página inicial
-	private void paginaInicial(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/admin/index.jsp");
-		dispatcher.forward(request, response);
-	}
-	
-	//apresentaFormularioCadastroCliente
-	private void apresentaFormularioCadastroCliente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/admin/formulario.jsp");
-		request.setAttribute("usuario", "cliente");
-		dispatcher.forward(request, response);
-	}
-	
-	//insereCliente
-	private void insereCliente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		String email = request.getParameter("email");
-		String senha = request.getParameter("senha");
-		String nome = request.getParameter("nome");	
-		Date nascimento = null;
-		String sexo = request.getParameter("sexo");
-		String cpf = request.getParameter("cpf");
-		String categoria = "CLIENTE";	
-		String telefone = request.getParameter("telefone");				
-
-		try {
-			nascimento = new java.sql.Date((new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("nascimento"))).getTime());
-		} catch (Exception e) {
+			if(lista_clientes.get(i).getSenha().equals(senha)) {
+				if(ver_cli == 0)
+					erros.add("Senha já está sendo usada");
+			}
+			i++;
 		}
 
-		Usuario cliente = new Usuario(email, senha, nome, nascimento, sexo, cpf, categoria, telefone );
+   		int j = 0;
+		int ver_loja = 0;
+		LojaDAO dao_loja = new LojaDAO();
+		List<Loja> lista_lojas = dao_loja.getAll();
+		while(j<lista_lojas.size() && erros.size() == 0) { //verifica duplicação de loja
+			if(lista_lojas.get(j).getEmail().equals(email)) {
+				erros.add("Email já cadastrado");
+				ver_loja = 1;
+			}
+			if(lista_lojas.get(j).getSenha().equals(senha)) {
+				if(ver_loja == 0)
+					erros.add("Senha já está sendo usada");
+			}
+			j++;
+		}
+		return erros;
+    	
+    }
+    
+    private void insereLoja(HttpServletRequest request, HttpServletResponse response) 
+    		throws ServletException, IOException {
+    	request.setCharacterEncoding("UTF-8");
+    	
+    	String email = request.getParameter("email");
+    	String senha = request.getParameter("senha");
+    	String CNPJ = request.getParameter("CNPJ");
+    	String nome = request.getParameter("nome");
+    	String descricao_loja = request.getParameter("descricao");
+    	Erro erros = new Erro();
+    	erros = verifica_duplicado(email,senha);
+    	Loja loja = new Loja(email, senha, CNPJ, nome, descricao_loja);
+    	if(erros.isExisteErros()) {
+			request.setAttribute("mensagens", erros);
+			String URL = "/logado/admin/formularioLojas.jsp";
+			RequestDispatcher rd = request.getRequestDispatcher(URL);
+			rd.forward(request, response);
+    	}else {
+        	daoLoja.insert(loja);
+        	// Retorna para a página do CRUD:
+        	response.sendRedirect("listaLojas");
+    	}
+    	
+    }
+    
+    private void atualizaLoja(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Long id = Long.parseLong(request.getParameter("id"));
+        String nome = request.getParameter("nome");
+    	String email = request.getParameter("email");
+    	String senha = request.getParameter("senha");
+    	String CNPJ = request.getParameter("CNPJ");
+    	String descricao = request.getParameter("descricao");
+    	
+    	Loja loja = new Loja(id,email,senha,CNPJ,nome,descricao);
+    	
+        daoLoja.update(loja);
+        
+        response.sendRedirect("listaLojas");
+    }
+    
+    private void removeLoja(HttpServletRequest request, HttpServletResponse response)
+    		throws IOException {
+    	String id_s = request.getParameter("id");
+    	Long id = Long.parseLong( id_s );
+    	Loja loja = new Loja(id);
+    	daoLoja.delete(loja);
+   
+    	// Retorna para a página do CRUD:
+    	response.sendRedirect("listaLojas");
+    }
 
-		dao.insertCliente(cliente);
-		response.sendRedirect("listaClientes");
-	}
-	
-	//apresentaFormularioCadastroLoja
-	private void apresentaFormularioCadastroLoja(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/admin/formulario.jsp");
-		request.setAttribute("usuario", "loja");
-		dispatcher.forward(request, response);
-	}
-	
-	//insereLoja
-	private void insereLoja(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-
-		
-		String email = request.getParameter("email");
-		String senha = request.getParameter("senha");
-		String nome = request.getParameter("nome");
-		String cnpj = request.getParameter("cnpj");
-		String categoria = "LOJA";
-		String descricao = request.getParameter("descricao");
-		
-		Usuario loja = new Usuario(email, senha, nome, categoria, cnpj, descricao);
-
-		dao.insertLoja(loja);
-		response.sendRedirect("listaLojas");
-	}
-	
-	//listaClientes
 	private void listaClientes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Usuario> listaClientes = dao.getAllClientes();
-		request.setAttribute("listaClientes", listaClientes);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/admin/listaClientes.jsp");
-		dispatcher.forward(request, response);
-	}
-	
-	//listaLojas
-	private void listaLojas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Usuario> listaLojas = dao.getAllLojas();
-		request.setAttribute("listaLojas", listaLojas);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/admin/listaLojas.jsp");
-		dispatcher.forward(request, response);
-	}
-	
-	//apresentaFormularioEdicaoCliente
-	private void apresentaFormularioEdicaoCliente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Long id = Long.parseLong(request.getParameter("id"));
-		Usuario cliente = dao.get(id);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/admin/formulario.jsp");
-		request.setAttribute("cliente", cliente);
-		dispatcher.forward(request, response);
-	}
-	
-	//atualizaCliente
-	private void atualizaCliente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		Long id = Long.parseLong(request.getParameter("id"));		
-		String email = request.getParameter("email");
-		String senha = request.getParameter("senha");
-		String nome = request.getParameter("nome");		
-		Date nascimento = null;
-		String sexo = request.getParameter("sexo");
-		String cpf = request.getParameter("cpf");
-		String categoria = "CLIENTE";		
-		String telefone = request.getParameter("telefone");			
+        List<Cliente> listaClientes = daoCliente.getAll();
+        request.setAttribute("listaClientes", listaClientes);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/admin/listaClientes.jsp");
+        dispatcher.forward(request, response);
+    }
 
-		try {
-			nascimento = new java.sql.Date((new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("nascimento"))).getTime());
-		} catch (Exception e) {
+    private void apresentaFormCadastroClientes(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {	
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/admin/formularioClientes.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void apresentaFormEdicaoClientes(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Long id = Long.parseLong(request.getParameter("id"));
+        Cliente cliente = daoCliente.getbyId(id);
+        request.setAttribute("cliente", cliente);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/admin/formularioClientes.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void insereCliente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+
+        String email = request.getParameter("email");
+        String senha = request.getParameter("senha");
+
+    	Erro erros = new Erro();
+    	erros = verifica_duplicado(email,senha);
+        String CPF = request.getParameter("CPF");
+        String nome = request.getParameter("nome");
+        String telefone = request.getParameter("telefone");
+        String sexo = request.getParameter("sexo");
+        String nascimento = request.getParameter("nascimento");
+        String papel = request.getParameter("papel");
+        Cliente cliente = new Cliente(email, senha, CPF, nome, telefone, sexo, nascimento, papel);
+        if(erros.isExisteErros()) {
+        	System.out.println(erros.getErros().get(0));
+			request.setAttribute("mensagens", erros);
+			String URL = "/logado/admin/formularioClientes.jsp";
+			RequestDispatcher rd = request.getRequestDispatcher(URL);
+			rd.forward(request, response);
+    	}else {    	
+	        daoCliente.insert(cliente);
+	        response.sendRedirect("listaClientes");
 		}
-		
-		Usuario cliente = new Usuario(id, email, senha, nome, nascimento, sexo, cpf, categoria, telefone);
+    }
+    
+    private void atualizaCliente(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Long id = Long.parseLong(request.getParameter("id"));
+    	String email = request.getParameter("email");
+    	String senha = request.getParameter("senha");
+    	String CPF = request.getParameter("CPF");
+    	String nome = request.getParameter("nome");
+    	String telefone = request.getParameter("telefone");
+    	String sexo = request.getParameter("sexo");
+    	String nascimento = request.getParameter("nascimento");
+    	String papel = request.getParameter("papel");
+    	
+    	Cliente cliente = new Cliente(id,email,senha,CPF,nome,telefone,sexo, nascimento,papel);
+    	
+        daoCliente.update(cliente);
+        
+        response.sendRedirect("listaClientes");
+    }
+    
+    private void removeCliente(HttpServletRequest request, HttpServletResponse response)
+    		throws ServletException, IOException {
 
-		dao.updateCliente(cliente);
-		response.sendRedirect("listaClientes");
-	}
-	
-	//apresentaFormularioEdicaoLoja
-	private void apresentaFormularioEdicaoLoja(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Long id = Long.parseLong(request.getParameter("id"));
-		Usuario loja = dao.get(id);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/admin/formulario.jsp");
-		request.setAttribute("loja", loja);
-		dispatcher.forward(request, response);
-	}
-	
-	//atualizaLoja
-	private void atualizaLoja(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		Long id = Long.parseLong(request.getParameter("id"));
-		String nome = request.getParameter("nome");
-		String email = request.getParameter("email");
-		String senha = request.getParameter("senha");
-		String categoria = "LOJA";
-		String cnpj = request.getParameter("cnpj");
-		String descricao = request.getParameter("descricao");
-		
-		Usuario agencia = new Usuario(id, email, senha, nome, cnpj, categoria, descricao);
-
-		dao.updateLoja(agencia);
-		response.sendRedirect("listaLojas");
-	}
-	
-	//removeCliente
-	private void removeCliente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Long id = Long.parseLong(request.getParameter("id"));
-		Usuario cliente = new Usuario(id);
-		dao.delete(cliente);
-		response.sendRedirect("listaClientes");
-	}
-	
-	//removeLoja
-	private void removeLoja(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Long id = Long.parseLong(request.getParameter("id"));
-		Usuario loja = new Usuario(id);
-		dao.delete(loja);
-		response.sendRedirect("listaLojas");
-	}
-	
-	
+		Erro erros = new Erro();
+    	String id_s = request.getParameter("id");
+    	Long id = Long.parseLong( id_s );  
+    	Cliente cliente = (Cliente) request.getSession().getAttribute("usuarioLogado");
+    	Cliente cliente_remover = new Cliente(id);
+		if (cliente.getId().equals(id)){
+			erros.add("Não é possível esse usuário!");
+            request.setAttribute("mensagens", erros);
+            RequestDispatcher rd = request.getRequestDispatcher("/noAuth.jsp");
+            rd.forward(request, response);
+		}
+		else {
+			daoCliente.delete(cliente_remover);
+			// Retorna para a página do CRUD:
+			response.sendRedirect("listaClientes");
+		}
+    }
 }

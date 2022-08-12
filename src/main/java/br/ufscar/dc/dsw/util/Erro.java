@@ -22,6 +22,10 @@ public final class Erro implements Serializable {
 	public void add(String mensagem) {
 		erros.add(mensagem);
 	}
+	
+	public int size() {
+		return erros.size();
+	}
 
 	public boolean isExisteErros() {
 		return !erros.isEmpty();

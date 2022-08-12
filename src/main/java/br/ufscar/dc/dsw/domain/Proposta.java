@@ -1,34 +1,38 @@
 package br.ufscar.dc.dsw.domain;
 
-import java.sql.Date;
-
-public class Compra {
+public class Proposta {
 
 	private Long id;
-	private Date data;
+	private String data_p;
 	private Float valor;
-	private Usuario usuario;
 	private Veiculo veiculo;
+	private Cliente cliente;
+	private Loja loja;
+	private String estado;
+	private int parcelamento;
 
-	public Compra(Long id) {
+	public Proposta (Long id,String estado, String data_p, Float valor, int parcelamento, Veiculo veiculo, Cliente cliente, Loja loja) {
 		this.id = id;
-	}
-
-	public Compra(Date data, Float valor, Usuario usuario, Veiculo veiculo) {
-		super();
-		this.data = data;
+		this.estado = estado;
+		this.data_p = data_p;
 		this.valor = valor;
-		this.usuario = usuario;
+		this.parcelamento = parcelamento;
 		this.veiculo = veiculo;
+		this.cliente = cliente;
+		this.loja = loja;
 	}
 	
-	public Compra(Long id, Date data, Float valor, Usuario usuario, Veiculo veiculo) {
-		super();
-		this.id = id;
-		this.data = data;
+	public Proposta (String estado, String data_p, Float valor, int parcelamento, Veiculo veiculo, Cliente cliente, Loja loja) {
+		this.estado = estado;
+		this.data_p = data_p;
 		this.valor = valor;
-		this.usuario = usuario;
+		this.parcelamento = parcelamento;
 		this.veiculo = veiculo;
+		this.cliente = cliente;
+		this.loja = loja;
+	}
+	public Proposta (Long id) {
+		this.id = id;
 	}
 
 	public Long getId() {
@@ -39,12 +43,20 @@ public class Compra {
 		this.id = id;
 	}
 
-	public Date getData() {
-		return data;
+	public String getEstado() {
+		return estado;
 	}
 
-	public void setData(Date data) {
-		this.data = data;
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public String getData() {
+		return data_p;
+	}
+
+	public void setData(String data_p) {
+		this.data_p = data_p;
 	}
 
 	public Float getValor() {
@@ -55,6 +67,14 @@ public class Compra {
 		this.valor = valor;
 	}
 
+	public int getParcelamento() {
+		return parcelamento;
+	}
+
+	public void setParcelamento(int parcelamento) {
+		this.parcelamento = parcelamento;
+	}
+
 	public Veiculo getVeiculo() {
 		return veiculo;
 	}
@@ -63,11 +83,19 @@ public class Compra {
 		this.veiculo = veiculo;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
+	public Cliente getCliente() {
+		return cliente;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
+
+	public Loja getLoja() {
+		return loja;
+	}
+
+	public void setLoja(Loja loja) {
+		this.loja = loja;
+	}	
 }

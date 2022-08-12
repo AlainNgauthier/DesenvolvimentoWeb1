@@ -1,55 +1,67 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<table border="1">
+<table class="table table-striped">
 	<caption>
 		<c:choose>
 			<c:when test="${cliente != null}">
-				Atualizar cliente
-			</c:when>
+            	<h6>Atualizar</h6><br/>
+            </c:when>
 			<c:otherwise>
-				Cadastrar novo cliente
-			</c:otherwise>
+				<h6>Cadastrar</h6><br/> 	
+            </c:otherwise>
 		</c:choose>
 	</caption>
 	<c:if test="${cliente != null}">
-		<input type="hidden" name="id" value="<c:out value='${cliente.id}' />" />
+		<input type="hidden" name="id" value="${cliente.id}" />
 	</c:if>
 	<tr>
 		<td><label for="nome">Nome</label></td>
-		<td><input type="text" id="nome" name="nome" size="45" required value="${cliente.nome}" /></td>
+		<td><input type="text" id="nome" name="nome" size="30"
+			required value="${cliente.nome}" /></td>
 	</tr>
 	<tr>
 		<td><label for="email">Email</label></td>
-		<td><input type="text" id="email" name="email" size="45" required value="${cliente.email}" /></td>
+		<td><input type="text" id="email" name="email" size="30" required
+			value="${cliente.email}" /></td>
 	</tr>
 	<tr>
 		<td><label for="senha">Senha</label></td>
-		<td><input type="password" id="senha" name="senha" size="45" required value="${cliente.senha}" /></td>
-	</tr>
+		<td><input type="text" id="senha" name="senha" size="30" required
+			value="${cliente.senha}" /></td>
 	<tr>
-		<td><label for="cpf">CPF</label></td>
-		<td><input type="text" id="cpf" name="cpf" size="45" required value="${cliente.cpf}" /></td>
-	</tr>
-	<tr>
-		<td><label for="telefone">Telefone</label></td>
-		<td><input type="text" id="telefone" name="telefone" size="45" required value="${cliente.telefone}" /></td>
-	</tr>
-	<tr>
-		<td><label for="sexo">Sexo</label></td>
-		<td><input type="text" id="sexo" name="sexo" size="45" required value="${cliente.sexo}" /></td>
-	</tr>
-	<tr>
-		<td><label for="categoria">Categoria</label></td>
-		<td><input type="text" id="categoria" name="categoria" size="45" required value="${cliente.categoria}" /></td>
+		<td><label for="CPF">CPF</label></td>
+		<td><input type="text" id="CPF" name="CPF" size="30"
+			required value="${cliente.CPF}" /></td>
 	</tr>
 	<tr>
 		<td><label for="nascimento">Nascimento</label></td>
-		<td><input type="date" id="nasc" name="nascimento" size="45" required value="${cliente.nascimento}" /></td>
+		<td><input type="text" id="nascimento" name="nascimento" size="30" required
+			value="${cliente.nascimento}" /></td>
 	</tr>
 	<tr>
-		<td colspan="2" align="center"><input type="submit" value="Salvar" /></td>
+		<td><label for="telefone">Phone</label></td>
+		<td><input type="text" id="telefone" name="telefone" size="30" required
+			value="${cliente.telefone}" /></td>
+	</tr>
+	<tr>
+		<td><label for="sexo">Sexo</label></td>
+		<td><input type="text" id="sexo" name="sexo" size="30" required
+			value="${cliente.sexo}" /></td>
+	</tr>
+	<tr>
+		<td><label for="papel">Papel</label></td>
+		<td>
+			<select name="papel">
+				<option value="ADMIN" ${cliente.papel == "ADMIN" ? 'selected="selected"' : ''}>ADMIN</option>
+				<option value="USER" ${cliente.papel == "USER" ? 'selected="selected"' : ''}>USER</option>
+			</select>			
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" align="center"><input type="submit" value="Salvar"/></td>
 	</tr>
 </table>

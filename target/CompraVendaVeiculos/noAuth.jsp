@@ -14,24 +14,19 @@
 			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         </head>
         <body>
-        <div class="container">
-            <div class="alert alert-warning" role="alert">
-            	<c:if test="${mensagens.existeErros}">
-        			<ul>
-                        <c:forEach var="erro" items="${mensagens.erros}">
-                            <li> ${erro} </li>
-                            </c:forEach>
-                    </ul>
-                    </c:if>
-      		</div>
-        </div>
-                <%-- <div id="has-error">
-                    <ul>
-                        <c:forEach var="erro" items="${mensagens.erros}">
-                            <li> ${erro} </li>
-                            </c:forEach>
-                    </ul>
-                </div> --%>
-            
+	        <div class="container">
+	            <div class="alert alert-warning" role="alert">
+	            	<c:if test="${mensagens.existeErros}">
+	        			<ul>
+	                        <c:forEach var="erro" items="${mensagens.erros}">
+	                            <li> ${erro} </li>
+	                            </c:forEach>
+	                    </ul>
+	                </c:if>
+	                <div align="center">
+	            		<a href="${pageContext.request.contextPath}/index.jsp">Voltar para a página inicial</a>
+	        		</div>
+	      		</div>
+	        </div>               
         </body>
 </html>

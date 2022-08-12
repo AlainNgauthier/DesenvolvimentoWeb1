@@ -12,26 +12,55 @@
 			<!-- Latest compiled and minified JavaScript -->
 			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 		</head>
-		<body>
-			
+		<body>			
 			<%
 				String contextPath = request.getContextPath().replace("/", "");
-			%>
+			%>			
 			<nav class="navbar navbar-inverse navbar-fixed-top">
-				<div class="container">
-					<div id="navbar" class="navbar-collapse collapse"">
+		        <div class="container">
+		        	<div id="navbar" class="navbar-collapse collapse"">
 						<ul class="nav navbar-nav">
-							<li><a href="/<%=contextPath%>/index.jsp">Home</a></li>
-							<li><a href="/<%=contextPath%>/compras">Minhas compras</a></li>
-							<li><a href="/<%=contextPath%>/logout/logout">Sair</a></li>
+							<li>
+				                <a href="${pageContext.request.contextPath}/clientes">
+			                      <span id="titulo">Área Cliente</span>
+			                    </a>
+			                </li>
+				            <li>
+	                    		<a href="proposta/listarPropostasCliente">Minha lista de Propostas</a>
+	                		</li>
+	                		<li>
+				                <a href="logout">Sair</a>
+				            </li>
 						</ul>
-					</div>
-				</div>
-			</nav>
+		        	</div>
+		        </div>
+	        </nav>
+	        <br/><br/><br/> 
 			<div class="container" role="main">
-				<div class="jumbotron">
-					<h2>Área Cliente: ${sessionScope.usuarioLogado.nome}</h2>
+				<div class="row">
+			        <div id="carros">
+			            <div id="divFiltro" class="row">
+			                <input type="text" name="Filtro" placeholder="Filtrar por modelo:" id="filtro">
+			            </div>
+			            <br/><br/>
+			            <div class="col-sm-6">
+				            <c:forEach var="veiculo" items="${requestScope.catalogo}">
+				                <div class="box" onclick="location.href='clientes/comprar?id=${veiculo.id}'">
+				                    <div>
+				                        <ul class="list-group">
+				                            <li class="modelo list-group-item">${veiculo.modelo}</li>
+				                            <li class="list-group-item">Loja: ${veiculo.loja.nome}</li>
+				                            <li class="list-group-item">${veiculo.quilometragem} km</li>
+				                            <li class="list-group-item">R$ ${veiculo.valor}</li>                    
+				                        </ul>
+				                    </div>
+				                </div>
+				            </c:forEach>
+			            </div>
+			        </div>
 				</div>
-			</div>
+			</div> 
+	        <script src="js/filtro.js"></script>
+			
 		</body>
 </html>

@@ -17,21 +17,12 @@
 			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         
         </head>
-        <body>
-            <c:if test="${mensagens.existeErros}">
-                <div id="erro">
-                    <ul>
-                        <c:forEach var="erro" items="${mensagens.erros}">
-                            <li> ${erro} </li>
-                            </c:forEach>
-                    </ul>
-                </div>
-            </c:if>
+        <body>         
             <div class="container" role="main">
 	            <div class="page-header">
 	            	<h2>Fazer login</h2>
 	            	<div class="container">
-			            <form method="post" action="log.jsp">			            	
+			            <form method="post" action="login">			            	
 			            	<div class="form-group">
 			            		<label for="inputEmail">Email</label>
 				                <input type="text" name="login" value="${param.login}" class="form-control" id="inputEmail" />
@@ -43,6 +34,17 @@
 				            <button type="submit" class="btn btn-primary" name="bOK">Login</button>			            		  
 			            </form>            
 	            	</div>
+	            </div>
+	            <div class="row">
+		             <c:if test="${mensagens.existeErros}">
+		                <div class="row">
+		                    <ul>
+		                        <c:forEach var="erro" items="${mensagens.erros}">
+		                            <li> ${erro} </li>
+		                        </c:forEach>
+		                    </ul>
+		                </div>
+		            </c:if>
 	            </div>
             </div>
         </body>
