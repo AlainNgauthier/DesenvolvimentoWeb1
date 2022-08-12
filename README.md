@@ -3,7 +3,6 @@
 Desenvolvido pelos alunos:<br/>
 - Alain Gauthier Ndamwey, 725921
 - Patrícia da Silva Ramos, 795410
-- 
 
 <br/>
 
@@ -21,9 +20,9 @@ Desenvolvido pelos alunos:<br/>
 - CRUD de lojas (E-mail, senha, CNPJ, nome e descrição) [DONE] - 2;
 - Cadastro de veículo para venda (requer login da loja via e-mail e senha) [DONE] - 3;
 - Listagem de todos os veículos em uma página (Filtro por modelo, não requer login) [DONE] - 4;
-- Proposta de compra de veículo (login de cliente via e-mail e senha) [TO DO] - 5;
-- Listagem de todos os veículos de uma loja (login da loja via e-mail e senha) [in progress] - 6;
-- Listagem de todas as propostas de compra de um cliente (login do cliente via email e senha) [TO DO] - 7;
-- A loja deve analisar as condições da proposta e atualizar o status da proposta p/ NÃO ACEITO ou ACEITO. [TO DO] - 8;
+- Proposta de compra de veículo (login de cliente via e-mail e senha) [DONE] - 5;
+- Listagem de todos os veículos de uma loja (login da loja via e-mail e senha) [DONE] - 6;
+- Listagem de todas as propostas de compra de um cliente (login do cliente via email e senha) [DONE] - 7;
+- A loja deve analisar as condições da proposta e atualizar o status da proposta p/ NÃO ACEITO ou ACEITO. [DONE] - 8;
 - O sitema deve tratar todos os erros possíveis. [DONE] - 9;
 
