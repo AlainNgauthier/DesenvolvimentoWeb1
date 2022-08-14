@@ -52,7 +52,7 @@
 		                        <th>Loja</th>
 								<th>Proposta</th>
 		                        <th>Status</th>
-	                            <th>Ações</th>
+	                            <!-- <th>Ações</th> -->
 							</tr>
 						</thead>
 						<tbody>
@@ -77,11 +77,11 @@
 		                            		</c:otherwise>
 		                            	</c:choose>
 		                            </td>
-	                                <td>
+	                                <%-- <td>
 	                                    <c:if test="${proposta.estado == 'ABERTO' }">
 	                                	    <a id="negar" href="../proposta/removerProposta?id=${proposta.id}">Cancelar Proposta</a>
 	                                    </c:if>
-	                                </td>
+	                                </td> --%>
 								</tr>
 							</c:forEach>
 						</tbody>

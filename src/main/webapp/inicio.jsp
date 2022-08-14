@@ -55,17 +55,17 @@
 						            	<!--  class="box" -->
 						            	<ul class="list-group">
 								            <li class="modelo list-group-item">${veiculo.modelo}</li>
-								            <li class="list-group-item">Loja: ${veiculo.loja.nome}</li>
-								            <li class="list-group-item">Km(s): ${veiculo.quilometragem}</li>
-								            <li class="list-group-item">Preço: R$ ${veiculo.valor}</li>
+								            <li class="list-group-item">Loja ${veiculo.loja.nome}</li>
+								            <li class="list-group-item">${veiculo.quilometragem} km</li>
+								            <li class="list-group-item">R$ ${veiculo.valor}</li>
 						            	</ul>
 						            </div>				               
 					            </c:forEach>	            	
 							</div>
-					</div>
 					<div class="row">
 		                <input type="text" name="Filtro" placeholder="Busque por modelo" id="filtro">
 		            </div>
+					</div>
 		        </div>   
 	         </div>
 	        <script src="js/filtro.js"></script>
